@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOM</title>
+    <style>
+      .toggle{
+        background-color: aqua;
+      }
+      .isToggled{
+        background-color: blueviolet;
+      }
+    </style>
+  </head>
+  <body>
+    <button>
+      Hello
+    </button>
+    <button class="JS-button">
+      Second button
+    </button>
+    <button class = "b-button" onclick="buttonPress();">
+      9B
+    </button>
+    <div>
+      <input placeholder="Enter your name" class="name" onkeyup="handleKeyPress(event);">
+      <button onclick="dispName();">Submit</button>
+      <p class="displayName"></p>
+    </div>
+    <div>
+      <button class="toggle toggle0" onclick="toggleButton('.toggle0');">
+        Gaming
+      </button>
+      <button class="toggle toggle1" onclick="toggleButton('.toggle1');">
+        Tech
+      </button>
+      <button class="toggle toggle2" onclick="toggleButton('.toggle2');">
+        Sports
+      </button>
+    </div>
+    <script>
+      /*
+      document.body.innerHTML = 'hello'; // change content of the webpage
+      document.title = 'Good job!'; //change title of webpage
+      // document.body is an object so we can have HTML inside a JS file.
+      document.body.innerHTML = '<button>Goob job!</button>'; */
+
+      console.log(document.querySelector('button')); // used for getting the 1st html element and putting in JS
+      console.log(document.querySelector('button').innerHTML);
+      document.querySelector('button').innerHTML = 'changed';
+      const buttonElement = document.querySelector('.JS-button');
+      console.log(buttonElement);
+
+      function buttonPress(){
+        
+      const buttonElement1 = document.querySelector('.b-button');
+      if(buttonElement1.innerText === '9B'){
+        buttonElement1.innerHTML = '9B Done!';
+      } else {
+        buttonElement1.innerHTML = '9B';
+      }
+
+      }
+
+      function dispName(){
+        const inputElement = document.querySelector('.name');
+        document.querySelector('.displayName').innerHTML = `Your name is ${inputElement.value}`;
+      }
+
+      function handleKeyPress(event){
+          dispName();
+      }
+
+      function toggleButton(selector){
+        let buttonElement = document.querySelector(selector);
+        if (!buttonElement.classList.contains('isToggled')){
+          turnOffPrev();
+          buttonElement.classList.add('isToggled');
+        } else{
+          buttonElement.classList.remove('isToggled');
+        }
+      }
+      function turnOffPrev(){
+        let prevButton = document.querySelector('.isToggled');
+        if (prevButton){
+          prevButton.classList.remove('isToggled');
+        }
+      }
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Advanced Functions</title>
+  </head>
+  <body>
+    <button class="start">Start
+    </button>
+    <button class="atc-button">Add to cart</button>
+    <p class="atc-display"></p>
+
+    <button class ='add-button'>Add</button>
+    <button class = 'remove-button'>Remove</button>
+
+    <button class="click-button" onclick="">Click</button>
+  </body>
+  <script>
+
+    document.querySelector('.start').addEventListener('click', ()=>{
+      setTimeout(() => {
+        document.querySelector('.start').innerHTML = 'Finished!'},
+        1000);
+        document.querySelector('.start').innerHTML = 'Loading...'
+    });
+
+    const buttonElement = document.querySelector('.click-button');
+    const eventListener = () => {console.log('click');}
+    buttonElement.addEventListener('click', eventListener);    // click is the event. the word after on, here onCLICK, is the event.
+    buttonElement.removeEventListener('click' , eventListener);   // removeevent should have the same parameter and function of the added event
+    buttonElement.addEventListener('click', ()=>{
+      console.log('click2');
+    });
+    /*
+    function greeting(){    // this sort of function helps in hoisting(calling function before creating)
+      console.log("Hello");
+    }
+
+    greeting();
+
+    const function1 = function(){console.log("greeting");}
+
+    console.log(function1);
+    console.log(typeof function1);
+    function1();
+
+    const object = {
+      num : 2,
+      fun : function(){console.log("hello2");},
+    };
+
+    object.fun();
+
+    //we can also pass a function as a parameter
+
+    function display(param){
+      param(); // you run the function passed to the variable param
+    }
+
+    display(function(){console.log("hello3")});
+    */
+    //setTimeout(function(){console.log("Timeout");}, 3000); //1000ms = 1 s runs func after 3s. This is async code. sets timer. executes next statemnet and then runs this.
+    //console.log("next line");
+
+    //setInterval(function(){console.log("Timeout2");}, 3000);    // keeps running this function for certain period of time
+
+    ["make dinner",
+      "wash dishes",
+      "wash youtube"
+    ].forEach((value,index) => {console.log(value,index);});    // return function does the job of continue
+
+    const add = function(){console.log(2+3)};
+
+    add();
+    add();
+
+    function runTwice(fun){
+      fun();
+      fun();
+    }
+
+    runTwice(function(){console.log('12b')});
+    runTwice(add);
+
+    let timeoutID;
+
+    document.querySelector('.atc-button').addEventListener('click',()=>{
+      document.querySelector('.atc-display').innerHTML = 'Added...';
+      clearTimeout(timeoutID);
+      timeoutID = setTimeout(function(){
+        document.querySelector('.atc-display').innerHTML = '';
+      },2000);
+    });
+
+    let msg = 2;   
+    let intervalID;
+    let displayNotif;
+
+    document.querySelector('.add-button').addEventListener('click',()=>{
+        msg++;
+        if (displayNotif){
+          return;
+        }
+
+        displayNotif = true;
+        intervalID = setInterval(function(){
+          if (document.title === "Advanced Functions"){
+          document.title = `(${msg}) New Message`;
+        } else{
+          document.title = "Advanced Functions";
+        }
+      }, 1000)
+    });
+
+    document.querySelector('.remove-button').addEventListener('click',()=>{
+      if (msg > 0){
+        msg--;
+      }else if (msg === 0){
+        document.title = "Advanced Functions";
+        displayNotif = false;
+        clearInterval(intervalID);
+      }
+    });
+
+    const arrowFunction = () => {
+      console.log('Hello');
+    }
+    arrowFunction();
+    
+    const oneParam = param => {
+      console.log(param+1)
+    }
+
+    oneParam(2);
+
+
+    // use arrow Functions when you call a function in another function. 
+    const oneLine = () => {return 2+3};
+    // or
+    const oneLine1 = () => 2+3;
+
+    console.log(oneLine());
+    console.log(oneLine1());
+
+    // const obejct = {
+    //   method: () => {}, // 2nd way is better for objects.
+    //   method(){
+
+    //   }
+    // }
+
+    const array1 = [1,-3,5];
+    console.log(array1.filter((value, index)=> {
+      // if (value >= 0){
+      //   return true;
+      // } else{
+      //   return false;
+      // }
+      return value >= 0;
+    }));   // filter creates a new array. if function is true it add value to array.
+
+    const array2 = [1,1,3];
+    console.log(array2.map((value,index)=> {
+      return value*2;
+    }));
+    console.log(array2.map(value=> value*2))    // same as before line when we have only one line.
+
+    const multiple = (val1,val2) =>  val1*val2;
+    console.log(multiple(2,3));
+
+    let countPositive = (array) => {
+      
+      let count = 0
+      array.forEach((value) => {
+        if (value > 0){
+          count ++;
+        };
+      });
+      return count;
+    };
+    console.log(countPositive(array1));
+
+    let addnum = (array,num) => array.map(value => value+num );
+    console.log(addnum(array1,3));
+
+    function removeEgg(array) {
+      let count = 0;
+       return array.filter((value) => {
+        if (value !== 'egg' || count === 2){
+          return true;
+        } else {
+          count++;
+          return false;
+        }
+      });
+    }
+    console.log(removeEgg(['eat','egg','eat','egg','ham','egg']));
+  </script>
+</html>

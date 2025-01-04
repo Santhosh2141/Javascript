@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Functions</title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <button onclick="function1();">
+      Run Function
+    </button>
+    <script>
+      function convertLength(measurement, unit1, unit2){
+        let newMeasure = 0;
+        if (unit1 === 'km' && unit2 === 'mile' ){
+          newMeasure = measurement/1.6;
+        } else if (unit1 === 'mile' && unit2 === 'km'){
+          newMeasure = measurement*1.6;
+        } else if (unit1 === unit2){
+          newMeasure = measurement
+        } else {
+          return `Invalid Unit ${unit1}`; 
+        }
+        return newMeasure;
+      }
+      console.log(convertLength(50,'mile','km'));
+      console.log(convertLength(32,'km','mile'));
+      console.log(convertLength(50,'km','km'));
+      console.log(convertLength(50,'lbs','km'));
+      function function1(parameter1){
+        if (!parameter1){
+          console.log(`Hello there`);
+        } else {
+        console.log(`Hello ${parameter1}`);
+        }
+        console.log(2+2);
+      }
+
+      function1('santhosh');
+    </script>
+  </body>
+</html>
+

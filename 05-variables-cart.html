@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Variables</title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <p>
+      Cart Quantity
+    </p>
+    <button onclick="console.log('Cart Quantinity ' + quantity);document.querySelector('.displayAmount').innerHTML = `Cart Quantity: ${quantity}`;">
+      Show Quantity
+    </button>
+    <button onclick="updateCartQuantity(1);">
+      Add to cart
+    </button>
+    <button onclick = "updateCartQuantity(2);">
+      + 2
+    </button>
+    <button onclick="updateCartQuantity(3);">
+      + 3
+    </button>
+    <button onclick="updateCartQuantity(4);">
+      + 4
+    </button>
+    <button onclick="updateCartQuantity(5);">
+      + 5
+    </button>
+    <button onclick="updateCartQuantity(-1);">
+      Remove from cart
+    </button>
+    <button onclick="updateCartQuantity(-2);">
+      - 2
+    </button>
+    <button onclick="updateCartQuantity(-3);">
+      - 3
+    </button>
+    <button onclick="
+    console.log('Cart was reset');
+    console.log('Cart Quantinity ' + (quantity = 0));
+    document.querySelector('.displayAmount').innerHTML = `Cart Quantity: ${quantity}`;">
+      Reset Cart
+    </button>
+    <p class="displayAmount"></p>
+    <script>
+      let quantity = 0;  
+      
+      let name = 'Santhosh Srinivas';
+      console.log(`My name is ${name}`);    
+      let cofee = 5;
+      let bagels = 3;
+      let soup = 9;
+      let cost = cofee + 2*bagels + soup;
+      const tax = 0.1;
+      let taxOnBill = cost * 0.1;
+      let totalCost = cost + taxOnBill;
+      console.log(`Cost: $${cost}`);   
+      console.log(`Tax(10%): $${taxOnBill}`);     
+      console.log(`Total Cost: $${totalCost}`);   
+
+      function updateCartQuantity(amount){
+        if( quantity+amount > 10){
+          console.log('Cart is Full')
+          alert('Cart is full');
+          return;
+        }
+        if( quantity + amount < 0){
+          console.log('Cart is Empty')
+          alert('Cart is Empty');
+          return;
+        }
+        quantity += amount;
+        console.log('Cart Quantinity ' + quantity );
+        document.querySelector('.displayAmount').innerHTML = `Cart Quantity: ${quantity}`
+      }
+    </script>
+  </body>
+</html>

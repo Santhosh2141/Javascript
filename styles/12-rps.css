@@ -1,0 +1,49 @@
+body{
+  background-color: black;
+  color: white;
+  font-family: Arial;
+}
+.title{
+  font-size: 30px;
+  font-weight: bold;
+}
+.move-icon{
+  height: 50px;
+}
+.move-button{
+  background-color: transparent;
+  border-radius: 50px;
+  height: 100px;
+  width: 100px;
+  border: solid;
+  border-color: white;
+}
+.reset,.auto-play{
+  background-color: transparent;
+  color: white;
+  height: 50px;
+  width: 100px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: solid;
+  border-color: white;
+  margin-top: 10px;
+}
+.js-result{
+  font-size: 20px;
+  font-weight: bold;
+  font-family: Arial;
+  color: white;
+  margin-top: 15px;
+}
+.flip-button{
+  background-color: transparent;
+  border-radius: 50px;
+  height: 80px;
+  width: 100px;
+  border:2px solid white;
+}
+.flip-icon{
+  height: 50px;
+  width: 70px;
+}

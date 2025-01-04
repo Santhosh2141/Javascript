@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles/05-calculator.css">
+  </head>
+  <body>
+    <p>
+      CALCULATOR
+    </p>
+    <div>
+      <p class = "expression"></p>
+    </div>
+    <div style="padding-bottom: 5px;">
+      <button class = "number" onclick = "updateCalculation('1');">
+        1
+      </button>
+      <button class = "number" onclick="updateCalculation('2');">
+        2
+      </button>
+      <button class = "number" onclick="updateCalculation('3');">
+        3
+      </button>
+      <button class = "operation" onclick="updateCalculation(' + ');">
+        +
+      </button>
+    </div>
+    <div style="padding-bottom: 5px;">
+      <button class = "number" onclick="updateCalculation('4');">
+        4
+      </button>
+      <button class = "number" onclick="updateCalculation('5');">
+        5
+      </button>
+      <button class = "number" onclick="updateCalculation('6');">
+        6
+      </button>
+      <button class = "operation" onclick="updateCalculation(' - ');">
+        -
+      </button>
+    </div>
+    <div style="padding-bottom: 5px;">
+      <button class = "number" onclick="updateCalculation('7');">
+        7
+      </button>
+      <button class = "number" onclick="updateCalculation('8');">
+        8
+      </button>
+      <button class = "number" onclick="updateCalculation('9');">
+        9
+      </button>
+      <button class = "operation" onclick="updateCalculation(' * ');">
+        *
+      </button>
+    </div>
+    <div style="padding-bottom: 5px;">
+      <button class = "number" onclick="updateCalculation('0');">
+        0
+      </button>
+      <button class = "number" onclick="updateCalculation('.');">
+        .
+      </button>
+      <button class = "number" onclick="calculate(calculation);
+      localStorage.setItem('calculation',calculation); calculation= '';localStorage.setItem('calculation', calculation);">
+        =
+      </button>
+      <button class = "operation" onclick="updateCalculation(' / ');">
+        /
+      </button>
+    </div>
+    <button onclick="
+    calculation = '';
+    console.log('Calculation Reset.');
+    localStorage.setItem('calculation', calculation);
+    document.querySelector('.expression').innerHTML = `${calculation}`;"
+    class="number">
+      Clear
+    </button>
+    <script src="scripts/05-calculator.js">
+    </script>
+  </body>
+</html>
+

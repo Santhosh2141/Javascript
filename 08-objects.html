@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Objects</title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    
+    <script>
+      /*const product = {
+        name: 'socks',
+        price: 1190,
+      };
+      console.log(product);
+      console.log(product.name);
+      console.log(product.price);
+      
+     const product2 = {
+      name: 'shirt',
+      'delivery-time': '1 day',
+      ratings: {
+        start: 4.5,
+        count: 80
+      },
+      fun: function function1(){
+        console.log('Function inside object');
+      }
+     };
+     console.log(product2['name']); // we use [] when we have properties like [delivery-time]. if we use dot it sassumes it as - sign
+     console.log(product2['delivery-time']);
+     console.log(product2.ratings.count);
+     product2.fun();
+
+     console.log(JSON.stringify(product2)); // Javascript object to JSON object
+     console.log(JSON.parse(JSON.stringify(product2))); // JSON object to javascript object
+    */
+   // 'hello'.length or 'hello'.toUpperCase
+
+   const object1 = {
+    message: 'hello',
+   };
+
+   const object2 = object1;
+   object1.message = 'Good';
+   const object3 ={
+    message: 'Good',
+   };
+   const object4 = {
+    message: 'Good',
+    price: 7.99
+   };
+   // object3!===object1 but object2===object as object2 is refernece of object1
+   const { message,price } = object4; //destructuring. takes vales of objects and assigns to vairables.
+   console.log(message);
+   console.log(price);
+
+   const object5 = {
+    //message: message,
+    message,
+    /*method: function function1(){
+      console.log('method');
+    }*/
+    method() {
+      console.log('method');
+    }
+   };
+   console.log(object5);
+   object5.method();
+    </script>
+  </body>
+</html>
+

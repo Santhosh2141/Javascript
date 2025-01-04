@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Booleans</title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <div style="padding-bottom: 20px;">
+      <p>
+        Rock Paper Scissors
+      </p>
+      <button onclick="
+      let chosen = 'Rock';
+      let result = '';
+      let randomNumber =  Math.random(0,1);
+      let compValue = '';
+      if (randomNumber < 1/3){
+        compValue = 'Rock';
+        console.log(`You picked ${chosen}, Computer picked ${compValue}`);
+      } else if (randomNumber >= 1/3 && randomNumber < 2/3){
+        compValue = 'Paper';
+        console.log(`You picked ${chosen}, Computer picked ${compValue}`);
+      } else {
+        compValue = 'Scissors';
+        console.log(`You picked ${chosen}, Computer picked ${compValue}`);
+      }
+      if (compValue === 'Rock'){
+        result = 'Tie';
+        tie++;
+      } else if (compValue === 'Paper'){
+        result = 'You lost';
+        lost++;
+      }else {
+        result = 'You Won';
+        won++;
+      }
+      alert(`You picked ${chosen}, Computer picked ${compValue}. ${result}`);">
+        Rock
+      </button>
+      <button onclick="
+      chosen = 'Paper';
+      result = '';
+      randomNumber =  Math.random(0,1);
+      compValue = ''
+      console.log(randomNumber);
+      if (randomNumber < 1/3){
+        compValue = 'Rock';
+        console.log(`You picked ${chosen}, Computer picked ${compValue}`);
+      } else if (randomNumber >= 1/3 && randomNumber < 2/3){
+        compValue = 'Paper';
+        console.log(`You picked ${chosen}, Computer picked ${compValue}`);
+      } else {
+        compValue = 'Scissors';
+        console.log(`You picked ${chosen}, Computer picked ${compValue}`);
+      }
+      if (compValue === 'Paper'){
+        result = 'Tie';
+        tie++;
+      } else if (compValue === 'Scissors'){
+        result = 'You lost';
+        lost++;
+      } else {
+        result = 'You Won'
+        won++;
+      }
+      alert(`You picked ${chosen}, Computer picked ${compValue}. ${result}`);">
+        Paper
+      </button>
+      <button onclick="
+      chosen = 'Scissors';
+      result = '';
+      randomNumber =  Math.random(0,1);
+      compValue = '';
+      if (randomNumber < 1/3){
+        compValue = 'Rock';
+        console.log(`You picked ${chosen}, Computer picked ${compValue}`);
+      } else if (randomNumber >= 1/3 && randomNumber < 2/3){
+        compValue = 'Paper';
+        console.log(`You picked ${chosen}, Computer picked ${compValue}`);
+      } else {
+        compValue = 'Scissors';
+        console.log(`You picked ${chosen}, Computer picked ${compValue}`);
+      }
+      if (compValue === 'Scissors'){
+        result = 'Tie';
+        tie++;
+      } else if (compValue === 'Rock'){
+        result = 'You lost';
+        lost++;
+      }else {
+        result = 'You Won'
+        won++;
+      }
+      alert(`You picked ${chosen}, Computer picked ${compValue}. ${result}`);">
+        Scissors
+      </button>
+    </div>
+    <div>
+      <button onclick="
+        let choice = Math.random(0,1);
+        let val = '';
+        if(choice >1/2){
+          val = 'Heads'
+        }else{
+          val = 'Tails'
+        }
+        if (val === 'Heads'){
+          alert('You Won');
+        }else{
+          alert('You Lost')
+        }">
+        Heads
+      </button>
+      <button onclick="
+      choice = Math.random(0,1);
+      val = '';
+      val = choice > (1/2) ? 'Heads' : 'Tails';
+      val === 'Tails' ? alert('You Won') : alert('You Lost');">
+        Tails
+      </button>
+    </div>
+    <script>
+      let won = 0;
+      let lost = 0;
+      let tie = 0;
+    </script>
+  </body>
+</html>
+

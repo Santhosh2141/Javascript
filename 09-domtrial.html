@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOM NEW TRIAL</title>
+    <style>
+      .sub-button{
+        color:white;
+        background-color: black;
+        border-radius: 30px;
+        padding: 10px 15px;
+        cursor: pointer;
+      }
+      .is-subscribed{
+        color:black;
+        background-color: grey;
+        border-radius: 30px;
+        padding: 10px 15px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p>YOUTUBE SUBSCRIBE</p>
+      <button class="sub-button" onclick="buttonChange();">
+        Subscribe
+      </button>
+    </div>
+    <div>
+      <p>AMAZON SHIPPING CALCULATOR</p>
+      <p>Order under $40 = +$10 shipping fee</p>
+      <p>Order above $40 = Free shipping</p>
+      <input placeholder="Cost of order" class="val" onkeydown="keydown(event);">
+      <button class="calcu-button" onclick="shippingCalc();">Calculate</button>
+      <p class="disp-total"></p>
+    </div>
+    <DIV>
+      <p>Cart Quantity</p>
+      <button onclick="dispCart()">Show Quantity</button>
+      <button onclick="calcCart(1)">Add 1 item</button>
+      <button onclick="calcCart(2)">+2</button>
+      <button onclick="calcCart(3)">+3</button>
+      <button onclick="calcCart(4)">+4</button>
+      <button onclick="calcCart(5)">+5</button>
+      <button onclick="calcCart(-1)">-1</button>
+      <button onclick="calcCart(-2)">-2</button>
+      <button onclick="calcCart(-3)">-3</button>
+      <button onclick="quantity = 0; dispCart(); localStorage.removeItem('quantity')">Reset Quantity</button>
+      <p class="show-quantity"></p>
+    </DIV>
+  </body>
+  <script>
+    function buttonChange(){
+      const buttonElem = document.querySelector(".sub-button");
+      if (buttonElem.innerText === "Subscribe"){
+        buttonElem.innerHTML = "Subscribed";
+        buttonElem.classList.add("is-subscribed");
+      } else {
+        buttonElem.innerHTML = "Subscribe";
+        buttonElem.classList.remove("is-subscribed");
+      }
+    }
+    function keydown(event){
+      if (event.key === "Enter"){
+        shippingCalc();
+      }
+    }
+    function shippingCalc(){
+      let cost = Number(document.querySelector(".val").value);
+      cost *= 100;
+      if (cost < 4000){
+        cost += 1000;
+      }
+      document.querySelector(".disp-total").innerHTML = cost/100;
+    }
+    let quantity = JSON.parse(localStorage.getItem("quantity"));
+    if (!quantity){
+      quantity = 0;
+    }
+    dispCart();
+    function calcCart(num){
+
+      if (quantity+num > 15){
+        alert(`Quantity more than 15.`)
+        return;
+      }else if (quantity+num < 0){
+        alert(`Quantity less than 0.`)
+        return;
+      } else {
+        quantity += num;
+        dispCart();
+      }
+      localStorage.setItem("quantity",JSON.stringify(quantity));
+    }
+
+    function dispCart(){
+      document.querySelector(".show-quantity").innerHTML = `Cart Quantity: ${quantity}`;
+      console.log(`Quantity: ${quantity}`)
+    }
+  </script>
+</html>
