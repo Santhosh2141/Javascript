@@ -45,12 +45,45 @@ products.forEach((product)=>{
       Added
     </div>
 
-    <button class="add-to-cart-button">
+    <button class="add-to-cart-button js-add-to-cart" data-product-id= "${product.id}">
       Add to Cart
     </button>
   </div>`
 });
 
-console.log(productsHtml);
+// we use productId instead of productName as 2 products can have the same name
 
+// console.log(productsHtml);
+// as there are multiple products we dont knkow which product was added to cart.
+// so we a data attribute to html code. any value can be added as attribute.
+// data attribute should start w the word "data" and be separated by -
 document.querySelector('.js-products-grid').innerHTML = productsHtml;
+document.querySelectorAll('.js-add-to-cart')
+.forEach((button)=>{
+  button.addEventListener('click',()=>{
+      // gives data attribute
+    const productId = button.dataset.productId;
+    let presentItem;
+    cart.forEach((item)=>{
+      if (productId === item.productId){
+        presentItem = item;
+      }
+    });
+    if (presentItem){
+      presentItem.quantity += 1;
+    } else {
+      cart.push({
+        productId: productId,
+        quantity: 1
+      });
+    }
+    
+    let totalCart = 0;
+    cart.forEach((item)=>{
+      totalCart += item.quantity;
+    });
+    document.querySelector('.js-cart-text').innerHTML = totalCart;
+    // console.log(totalCart);
+    console.log(cart);
+  });
+});
