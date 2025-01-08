@@ -57,6 +57,7 @@
 .cart-product-name,.choose-delivery-container{
   padding-left: 8px;
   font-weight: bold;
+  padding-bottom: 8px;
 }
 .cart-item-details{
   padding-left: 8px;
@@ -66,6 +67,7 @@
   padding-left: 8px;
   color: crimson;
   font-weight: bold;
+  padding-bottom: 8px;
 }
 .link{
   text-decoration: none;
