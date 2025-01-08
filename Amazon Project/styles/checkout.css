@@ -74,6 +74,7 @@
   padding-left: 8px;
   color: blue;
   padding: 5px;
+  cursor: pointer;
 }
 .cart-product-quantity{
   padding-left: 8px;
