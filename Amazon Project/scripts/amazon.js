@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js'; // .. means going out of script folder. we can rename and use these variables too.
+import {cart, addToCart} from '../data/cart.js'; // .. means going out of script folder. we can rename and use these variables too.
 // like import {cart as myCart} from '../data/scripts.js'
 import { products } from '../data/products.js';
 
@@ -62,55 +62,43 @@ products.forEach((product)=>{
 // so we a data attribute to html code. any value can be added as attribute.
 // data attribute should start w the word "data" and be separated by -
 document.querySelector('.js-products-grid').innerHTML = productsHtml;
+
+function totalCartQuantity() {
+  let totalCart = 0;
+  cart.forEach((item)=>{
+    totalCart += item.quantity;
+  });
+  document.querySelector('.js-cart-text').innerHTML = totalCart;
+}
+
+function addMsg(productId) {
+  let addedMsg = document.querySelector(`.js-added-to-cart-${productId}`);
+  addedMsg.classList.add('js-added-to-cart-visible');
+
+  let timeoutId;
+  // as multiple products have multiple add to carts and timeouts we do this to check the multiple add to carts for the same button
+  const addedTimeouts = {};
+  let prevTimeout = addedTimeouts[productId];
+
+  if(prevTimeout){
+    clearInterval(prevTimeout);
+  }
+
+  timeoutId = setTimeout(()=>{
+    addedMsg.classList.remove('js-added-to-cart-visible');
+    console.log(timeoutId)
+    addedTimeouts[productId] = timeoutId;
+  },3000);
+}
+
 document.querySelectorAll('.js-add-to-cart')
 .forEach((button)=>{
   button.addEventListener('click',()=>{
       // gives data attribute
     const {productId} = button.dataset;   // destructuring
 
-    let selectedValue = document.querySelector(`.js-selected-value-${productId}`);
-    const quantity = Number(selectedValue.value);
-
-    let addedMsg = document.querySelector(`.js-added-to-cart-${productId}`);
-    addedMsg.classList.add('js-added-to-cart-visible');
-
-    let timeoutId;
-    // as multiple products have multiple add to carts and timeouts we do this to check the multiple add to carts for the same button
-    const addedTimeouts = {};
-    let prevTimeout = addedTimeouts[productId];
-
-    if(prevTimeout){
-      clearInterval(prevTimeout);
-    }
-
-    timeoutId = setTimeout(()=>{
-      addedMsg.classList.remove('js-added-to-cart-visible');
-      console.log(timeoutId)
-      addedTimeouts[productId] = timeoutId;
-      console.log(addedTimeouts);
-    },2000);
-
-    let presentItem;
-    cart.forEach((item)=>{
-      if (productId === item.productId){
-        presentItem = item;
-      }
-    });
-    if (presentItem){
-      presentItem.quantity += 1;
-    } else {
-      cart.push({
-        productId,
-        quantity
-      });
-    }
-    
-    let totalCart = 0;
-    cart.forEach((item)=>{
-      totalCart += item.quantity;
-    });
-    document.querySelector('.js-cart-text').innerHTML = totalCart;
-    // console.log(totalCart);
-    console.log(cart);
+    addToCart(productId);
+    totalCartQuantity();
+    addMsg(productId);
   });
 });
