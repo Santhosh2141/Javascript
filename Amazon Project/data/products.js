@@ -656,5 +656,20 @@ const products = [
       "apparel",
       "mens"
     ]
+  },
+  {
+    id1: "santhosh_custom_product",
+    image: "images/products/backpack.jpg",
+    name: "BackPack",
+    rating: {
+      stars: 3.5,
+      count: 269
+    },
+    priceCents: 400,
+    keywords: [
+      "back",
+      "pack",
+      "bag",
+    ]
   }
 ];

@@ -56,6 +56,9 @@
   align-items: center;
   opacity: 0;
 }
+.js-added-to-cart-visible{
+  opacity: 1;
+}
 .add-to-cart-button{
   width: 100%;
   border-radius: 100px;

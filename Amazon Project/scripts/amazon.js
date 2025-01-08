@@ -40,7 +40,7 @@ products.forEach((product)=>{
 
     <div class="product-spacer"></div>
 
-    <div class="added-to-cart">
+    <div class="added-to-cart js-added-to-cart-${product.id}">
       <img src="images/icons/checkmark.png">
       Added
     </div>
@@ -62,9 +62,30 @@ document.querySelectorAll('.js-add-to-cart')
 .forEach((button)=>{
   button.addEventListener('click',()=>{
       // gives data attribute
-    const productId = button.dataset.productId;
+    const {productId} = button.dataset;   // destructuring
+
     let selectedValue = document.querySelector(`.js-selected-value-${productId}`);
     const quantity = Number(selectedValue.value);
+
+    let addedMsg = document.querySelector(`.js-added-to-cart-${productId}`);
+    addedMsg.classList.add('js-added-to-cart-visible');
+
+    let timeoutId;
+    // as multiple products have multiple add to carts and timeouts we do this to check the multiple add to carts for the same button
+    const addedTimeouts = {};
+    let prevTimeout = addedTimeouts[productId];
+
+    if(prevTimeout){
+      clearInterval(prevTimeout);
+    }
+
+    timeoutId = setTimeout(()=>{
+      addedMsg.classList.remove('js-added-to-cart-visible');
+      console.log(timeoutId)
+      addedTimeouts[productId] = timeoutId;
+      console.log(addedTimeouts);
+    },2000);
+
     let presentItem;
     cart.forEach((item)=>{
       if (productId === item.productId){
@@ -75,8 +96,8 @@ document.querySelectorAll('.js-add-to-cart')
       presentItem.quantity += 1;
     } else {
       cart.push({
-        productId: productId,
-        quantity: quantity
+        productId,
+        quantity
       });
     }
     
