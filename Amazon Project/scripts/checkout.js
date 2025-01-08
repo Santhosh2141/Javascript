@@ -1,5 +1,6 @@
 import {cart, addToCart} from '../data/cart.js';
 import { products } from '../data/products.js';
+import { formatCurrency } from './utils/money.js';
 
 let cartHtml = '';
 cart.forEach((item) => {
@@ -24,7 +25,7 @@ cart.forEach((item) => {
                   ${matchingProduct.name}
                 </div>
                 <div class="cart-product-price">
-                  $${(matchingProduct.priceCents/100).toFixed(2)}
+                  $${formatCurrency(matchingProduct.priceCents)}
                 </div>
                 <div class="cart-product-quantity">
                   Quantity: ${item.quantity}
@@ -37,7 +38,7 @@ cart.forEach((item) => {
                   Choose Delivery Option:
                   <div class="delivery-grid">
                     <div class="delivery-option">
-                      <input type="radio" name="delivery-option-1">
+                      <input type="radio" name="delivery-option-${matchingProduct.id}">
                       <div>
                         <div class="delivery-option-date">
                           Tuesday, June 21
@@ -48,7 +49,7 @@ cart.forEach((item) => {
                       </div>
                     </div>
                     <div class="delivery-option">
-                      <input type="radio" name="delivery-option-1">
+                      <input type="radio" name="delivery-option-${matchingProduct.id}">
                       <div>
                         <div class="delivery-option-date">
                           Tuesday, June 13
@@ -59,7 +60,7 @@ cart.forEach((item) => {
                       </div>
                     </div>
                     <div class="delivery-option">
-                      <input type="radio" name="delivery-option-1">
+                      <input type="radio" name="delivery-option-${matchingProduct.id}">
                       <div>
                         <div class="delivery-option-date">
                           Wednesday, June 14
