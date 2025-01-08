@@ -1,1 +1,1 @@
-const cart  =[];
+export const cart  =[]; //export allows using this in other files

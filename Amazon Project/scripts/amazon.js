@@ -1,3 +1,5 @@
+import {cart} from '../data/cart.js'; // .. means going out of script folder. we can rename and use these variables too.
+// like import {cart as myCart} from '../data/scripts.js'
 let productsHtml = '';
 products.forEach((product)=>{
   productsHtml += `
