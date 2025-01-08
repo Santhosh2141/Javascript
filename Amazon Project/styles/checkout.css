@@ -20,14 +20,13 @@
 }
 .cart-container, .payment-summary-section{
   border: 1px solid black;
-  padding: 10px;
-  padding-left: 20px;
+  padding: 20px;
   margin-bottom: 20px;
-  padding-bottom: 20px;
 }
 .cart-item-grid{
   display: grid;
   grid-template-columns: 100px 1fr 1fr;
+  column-gap: 25px;
   padding: 5px;
 }
 .cart-image-container{
@@ -95,7 +94,7 @@
 .payment-summary-section{
   margin-left: 20px;
   padding-left: 10px;
-
+  height: 265px;
 }
 .payment-details{
   display: grid;
