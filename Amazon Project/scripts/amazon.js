@@ -1,4 +1,4 @@
-import {cart, addToCart} from '../data/cart.js'; // .. means going out of script folder. we can rename and use these variables too.
+import {cart, addToCart, totalCartQuantity } from '../data/cart.js'; // .. means going out of script folder. we can rename and use these variables too.
 // like import {cart as myCart} from '../data/scripts.js'
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
@@ -64,13 +64,9 @@ products.forEach((product)=>{
 // data attribute should start w the word "data" and be separated by -
 document.querySelector('.js-products-grid').innerHTML = productsHtml;
 
-function totalCartQuantity() {
-  let totalCart = 0;
-  cart.forEach((item)=>{
-    totalCart += item.quantity;
-  });
-  document.querySelector('.js-cart-text').innerHTML = totalCart;
-}
+let totalCart = totalCartQuantity(cart);
+
+document.querySelector('.js-cart-text').innerHTML = totalCart;
 
 function addMsg(productId) {
   let addedMsg = document.querySelector(`.js-added-to-cart-${productId}`);
@@ -99,7 +95,8 @@ document.querySelectorAll('.js-add-to-cart')
     const {productId} = button.dataset;   // destructuring
 
     addToCart(productId);
-    totalCartQuantity();
+    let totalCart = totalCartQuantity(cart);
+    document.querySelector('.js-cart-text').innerHTML = totalCart;
     addMsg(productId);
   });
 });
