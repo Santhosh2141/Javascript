@@ -30,7 +30,7 @@
   padding: 5px;
 }
 .cart-image-container{
-
+  padding-top: 10px;
   padding-right: 20px;
 }
 .cart-image{
@@ -150,4 +150,7 @@
 }
 .is-editing-quantity .update-link{
   display: none;
+}
+.js-incorrect-quantity{
+  color: red;
 }

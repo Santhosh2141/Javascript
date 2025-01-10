@@ -1,7 +1,29 @@
 import {cart, addToCart, removeFromCart , totalCartQuantity, updateQuantity} from '../data/cart.js';
 import { products } from '../data/products.js';
-import { formatCurrency } from './utils/money.js';
+import formatCurrency from './utils/money.js';
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+import { deliveryOptions } from '../data/delivery-options.js'
 
+// the method used is default export when we want to import only 1 thing. other method is named export
+// in format currency we use export default formatCurrency. 1 file can have only 1 export default
+// we can use this URL as a direct script tag but, script tag will cause naming conflicts.
+// so we use these ext libs as modules
+
+
+// console.log(dayjs());
+/* we need to get todays date, 
+add 7 days for free delivery
+add 3 days for earlier delivery
+add 1 day for earliest delivery
+so we use dayjs as it had those functionalities*/
+// const today = dayjs();
+//console.log(today.add(7,'days'));   //add takes 2 parameters. 1st is the quantity, 2nd is the type of time
+// const deliveryDateAdd7 = today.add(7,'days');
+// console.log(deliveryDateAdd7.format('dddd,MMMM DD'));
+// const deliveryDateAdd3 = today.add(3,'days');
+// console.log(deliveryDateAdd3.format('dddd,MMMM DD'));
+// const deliveryDateAdd1 = today.add(1,'days');
+// console.log(deliveryDateAdd1.format('dddd,MMMM DD'));
 
 let cartHtml = '';
 cart.forEach((item) => {
@@ -13,9 +35,21 @@ cart.forEach((item) => {
     }
   });
   // console.log(matchingProduct);
+
+  const deliveryOptionId =item.deliveryOptionId;
+  let chosenDay ;
+  deliveryOptions.forEach((deliveryOption)=>{
+    if (deliveryOption.id === deliveryOptionId){
+      chosenDay = deliveryOption.deliveryDate;
+    }
+  });
+  const today = dayjs();
+  let chosenDate =  today.add(chosenDay,'days');
+  chosenDate = chosenDate.format('dddd, MMMM DD');
+
   cartHtml += `<div class="cart-container js-cart-container-${matchingProduct.id}">
             <div class="delivery-date">
-              Delivery date: Tuesday, June 21
+              Delivery date: ${chosenDate}
             </div>
             <div class="cart-item-grid">
               <div class="cart-image-container">
@@ -33,12 +67,14 @@ cart.forEach((item) => {
                   <span class="update-link js-update" data-product-id="${matchingProduct.id}">
                     Update
                   </span>
-                  <input class="quantity-input js-quantity-input">
-                  <span class="save-quantity-link link" data-product-id="${matchingProduct.id}">
+                  <input class="quantity-input js-quantity-input-${matchingProduct.id}">
+                  <span class="save-quantity-link link js-save-quantity-link" data-product-id="${matchingProduct.id}">
                     Save
                   </span>
                   <span class="link js-delete" data-product-id="${matchingProduct.id}">
                     Delete
+                  </span>
+                  <span class="incorrect-quantity js-incorrect-quantity" data-product-id="${matchingProduct.id}">
                   </span>
                 </div>
               </div>
@@ -46,39 +82,7 @@ cart.forEach((item) => {
                 <div class="choose-delivery-container">
                   Choose Delivery Option:
                   <div class="delivery-grid">
-                    <div class="delivery-option">
-                      <input type="radio" name="delivery-option-${matchingProduct.id}">
-                      <div>
-                        <div class="delivery-option-date">
-                          Tuesday, June 21
-                        </div>
-                        <div class="delivery-option-price">
-                          FREE Shipping
-                        </div>
-                      </div>
-                    </div>
-                    <div class="delivery-option">
-                      <input type="radio" name="delivery-option-${matchingProduct.id}">
-                      <div>
-                        <div class="delivery-option-date">
-                          Tuesday, June 13
-                        </div>
-                        <div class="delivery-option-price">
-                          $6.99 Shipping
-                        </div>
-                      </div>
-                    </div>
-                    <div class="delivery-option">
-                      <input type="radio" name="delivery-option-${matchingProduct.id}">
-                      <div>
-                        <div class="delivery-option-date">
-                          Wednesday, June 14
-                        </div>
-                        <div class="delivery-option-price">
-                          $4.99 Shipping Fee
-                        </div>
-                      </div>
-                    </div>
+                    ${deliveryOptionsHtml(matchingProduct.id,item)}
                   </div>
                 </div>
               </div>
@@ -86,6 +90,44 @@ cart.forEach((item) => {
           </div>`;
 });
 
+function calculateDate(deliveryOption){
+  console.log(dayjs());
+  const today = dayjs();
+  let deliveryDateAdd = today.add(deliveryOption.deliveryDate,'days');
+  deliveryDateAdd = deliveryDateAdd.format('dddd, MMMM DD');
+  return deliveryDateAdd;
+}
+
+function deliveryOptionsHtml(productId,item){
+
+  let html = '';
+  deliveryOptions.forEach((deliveryOption)=>{
+    
+    const deliveryDateAdd = calculateDate(deliveryOption);
+
+    const priceString = deliveryOption.priceCents === 0 ? 'FREE ' : `$${formatCurrency(deliveryOption.priceCents)} -`;
+
+    const isChecked = deliveryOption.id === item.deliveryOptionId; 
+    //Here we check the deliveryOptionID
+    /* It checkd the cart DeliveryOption. If it is 1, it checks the first option */
+
+    html += `
+      <div class="delivery-option">
+        <input type="radio" name="delivery-option-${productId}" ${isChecked?'checked':''}>
+        <div>
+          <div class="delivery-option-date">
+            ${deliveryDateAdd}
+          </div>
+          <div class="delivery-option-price">
+            ${priceString} Shipping
+          </div>
+        </div>
+      </div>
+
+    `
+  });
+  return html;
+}
 
 document.querySelector('.js-order-details').innerHTML = cartHtml;
 // document.querySelectorAll('.js-update').forEach((button)=>{
@@ -124,30 +166,46 @@ document.querySelectorAll('.js-delete').forEach((button)=>{
   });
 });
 
-document.querySelectorAll('.js-update').forEach((button)=>{
-  button.addEventListener('click', ()=>{
-    const {productId} = button.dataset;
-    document.querySelector(`.js-cart-container-${productId}`).classList.add('is-editing-quantity');
-  })
-});
+update();
+function update(){
+  document.querySelectorAll('.js-update').forEach((button)=>{
+    button.addEventListener('click', ()=>{
+      const {productId} = button.dataset;
+      document.querySelector(`.js-cart-container-${productId}`).classList.add('is-editing-quantity');
+    })
+  });
+}
+
+function updateCart(productId){
+  document.querySelector(`.js-cart-container-${productId}`).classList.remove('is-editing-quantity');
+  console.log(document.querySelector(`.js-cart-container-${productId}`).classList);
+
+  let newQuantity = document.querySelector(`.js-quantity-input-${productId}`);
+  newQuantity = Number(newQuantity.value);
+  if(newQuantity >= 0 && newQuantity < 1000){
+    updateQuantity(productId,newQuantity);
+    let totalCart = totalCartQuantity(cart);
+    document.querySelector('.js-checkout-items').innerHTML = `${totalCart} items`;
+    document.querySelector(`.js-update-quantity-${productId}`).innerHTML = newQuantity;
+    document.querySelector('.incorrect-quantity').innerHTML = '';
+  } else {
+    document.querySelector('.incorrect-quantity').innerHTML = 'You have entered an incorrect Quantity';
+    // document.querySelector('.incorrect-quantity')
+  }
+}
 
 document.querySelectorAll('.save-quantity-link').forEach((button)=>{
   button.addEventListener('click',()=>{
     const {productId} = button.dataset;
     console.log(productId);
-
-    document.querySelector(`.js-cart-container-${productId}`).classList.remove('is-editing-quantity');
-    console.log(document.querySelector(`.js-cart-container-${productId}`).classList);
-
-    let newQuantity = document.querySelector('.js-quantity-input');
-    newQuantity = Number(newQuantity.value);
-
-    updateQuantity(productId,newQuantity);
-    let totalCart = totalCartQuantity(cart);
-    
-    document.querySelector('.js-checkout-items').innerHTML = `${totalCart} items`;
-    document.querySelector(`.js-update-quantity-${productId}`).innerHTML = newQuantity;
+    updateCart(productId);
   })
+});
+
+document.body.addEventListener('keydown',(event)=>{
+  if(event.key === 'Enter'){
+  update();
+  }
 });
 
 
