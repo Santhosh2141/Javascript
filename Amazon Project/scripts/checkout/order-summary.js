@@ -154,6 +154,7 @@ export function renderOrderSumamry(){
           return;
         }else if (item.quantity === 1){
         removeFromCart(productId);
+        renderPaymtSummary();
         const container = document.querySelector(`.js-cart-container-${productId}`);
         container.remove();
         let totalCart = totalCartQuantity(cart);
