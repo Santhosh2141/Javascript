@@ -26,12 +26,12 @@
 .cart-item-grid{
   display: grid;
   grid-template-columns: 100px 1fr 1fr;
-  column-gap: 25px;
+  column-gap: 15px;
   padding: 5px;
 }
 .cart-image-container{
   padding-top: 10px;
-  padding-right: 20px;
+  padding-right: 10px;
 }
 .cart-image{
   max-width: 100%;

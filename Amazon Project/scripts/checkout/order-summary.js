@@ -2,8 +2,9 @@ import {cart, removeFromCart , totalCartQuantity, updateQuantity, updateDelivery
 import { getProduct, products } from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import { deliveryOptions } from '../../data/delivery-options.js';
+import { calculateDeliveryDate, deliveryOptions } from '../../data/delivery-options.js';
 import { renderPaymtSummary } from './payment-summary.js';
+import { renderCheckoutHeader } from './checkout-header.js';
 // the method used is default export when we want to import only 1 thing. other method is named export
 // in format currency we use export default formatCurrency. 1 file can have only 1 export default
 // we can use this URL as a direct script tag but, script tag will cause naming conflicts.
@@ -40,9 +41,8 @@ export function renderOrderSumamry(){
         chosenDay = deliveryOption.deliveryDate;
       }
     });
-    const today = dayjs();
-    let chosenDate =  today.add(chosenDay,'days');
-    chosenDate = chosenDate.format('dddd, MMMM DD');
+
+    let chosenDate = calculateDeliveryDate(chosenDay);
 
     cartHtml += `<div class="cart-container js-cart-container-${matchingProduct.id}">
               <div class="delivery-date">
@@ -100,7 +100,7 @@ export function renderOrderSumamry(){
     let html = '';
     deliveryOptions.forEach((deliveryOption)=>{
       
-      const deliveryDateAdd = calculateDate(deliveryOption);
+      const deliveryDateAdd = calculateDeliveryDate(deliveryOption.deliveryDate);
 
       const priceString = deliveryOption.priceCents === 0 ? 'FREE ' : `$${formatCurrency(deliveryOption.priceCents)} -`;
 
@@ -139,7 +139,7 @@ export function renderOrderSumamry(){
   // })
     
   let totalCart = totalCartQuantity(cart);
-
+  renderCheckoutHeader();
   document.querySelector('.js-checkout-items').innerHTML = `${totalCart} items`;
   document.querySelectorAll('.js-delete').forEach((button)=>{
     button.addEventListener('click',()=>{
@@ -154,11 +154,16 @@ export function renderOrderSumamry(){
           return;
         }else if (item.quantity === 1){
         removeFromCart(productId);
+
         renderPaymtSummary();
-        const container = document.querySelector(`.js-cart-container-${productId}`);
-        container.remove();
-        let totalCart = totalCartQuantity(cart);
-        document.querySelector('.js-checkout-items').innerHTML = `${totalCart} items`
+        renderOrderSumamry();
+        renderCheckoutHeader();
+        // const container = document.querySelector(`.js-cart-container-${productId}`);
+        // container.remove();
+
+        // let totalCart = totalCartQuantity(cart);
+        // document.querySelector('.js-checkout-items').innerHTML = `${totalCart} items`
+        
         }
       });
     });
@@ -182,10 +187,12 @@ export function renderOrderSumamry(){
     newQuantity = Number(newQuantity.value);
     if(newQuantity >= 0 && newQuantity < 1000){
       updateQuantity(productId,newQuantity);
-      let totalCart = totalCartQuantity(cart);
-      document.querySelector('.js-checkout-items').innerHTML = `${totalCart} items`;
+
+      renderCheckoutHeader();
+
       document.querySelector(`.js-update-quantity-${productId}`).innerHTML = newQuantity;
       document.querySelector('.incorrect-quantity').innerHTML = '';
+
     } else {
       document.querySelector('.incorrect-quantity').innerHTML = 'You have entered an incorrect Quantity';
       // document.querySelector('.incorrect-quantity')
@@ -196,8 +203,12 @@ export function renderOrderSumamry(){
     button.addEventListener('click',()=>{
       const {productId} = button.dataset;
       console.log(productId);
+
       updateCart(productId);
+
       renderPaymtSummary();
+      renderCheckoutHeader();
+
     })
   });
 
@@ -223,8 +234,11 @@ export function renderOrderSumamry(){
     radioButton.addEventListener('click',()=>{
       const {productId,deliveryOptionId} = radioButton.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
+
       renderOrderSumamry();
       renderPaymtSummary();
+      renderCheckoutHeader();
+
     })
   });
 }
