@@ -16,15 +16,21 @@ console.log(cart);
 export function saveToStorage(){
   localStorage.setItem('cart',JSON.stringify(cart));
 }
+
+export function getCartItem(productId){
+  let presentItem;
+    cart.forEach((item)=>{
+      if (productId === item.productId){
+        presentItem = item;
+      }
+    });
+    return presentItem;
+}
+
 export function addToCart(productId){
   let selectedValue = document.querySelector(`.js-selected-value-${productId}`);
   const quantity = Number(selectedValue.value);
-  let presentItem;
-  cart.forEach((item)=>{
-    if (productId === item.productId){
-      presentItem = item;
-    }
-  });
+  let presentItem = getCartItem(productId);
   if (presentItem){
     presentItem.quantity += 1;
   } else {
@@ -70,12 +76,7 @@ export function updateQuantity(productId, newQuantity) {
 
 export function updateDeliveryOption(productId, deliveryOptionId){
   
-  let presentItem;
-  cart.forEach((item)=>{
-    if (productId === item.productId){
-      presentItem = item;
-    }
-  });
+  let presentItem = getCartItem(productId);
   
   presentItem.deliveryOptionId = deliveryOptionId;
   saveToStorage();

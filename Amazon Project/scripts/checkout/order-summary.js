@@ -1,8 +1,9 @@
 import {cart, removeFromCart , totalCartQuantity, updateQuantity, updateDeliveryOption} from '../../data/cart.js';
-import { products } from '../../data/products.js';
+import { getProduct, products } from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions } from '../../data/delivery-options.js';
+import { renderPaymtSummary } from './payment-summary.js';
 // the method used is default export when we want to import only 1 thing. other method is named export
 // in format currency we use export default formatCurrency. 1 file can have only 1 export default
 // we can use this URL as a direct script tag but, script tag will cause naming conflicts.
@@ -29,12 +30,7 @@ export function renderOrderSumamry(){
   let cartHtml = '';
   cart.forEach((item) => {
     const cartId = item.productId;
-    let matchingProduct;
-    products.forEach((product)=>{
-      if (product.id === cartId){
-        matchingProduct = product;
-      }
-    });
+    let matchingProduct = getProduct(cartId);
     // console.log(matchingProduct);
 
     const deliveryOptionId =item.deliveryOptionId;
@@ -92,7 +88,7 @@ export function renderOrderSumamry(){
   });
 
   function calculateDate(deliveryOption){
-    console.log(dayjs());
+    // console.log(dayjs());
     const today = dayjs();
     let deliveryDateAdd = today.add(deliveryOption.deliveryDate,'days');
     deliveryDateAdd = deliveryDateAdd.format('dddd, MMMM DD');
@@ -144,8 +140,7 @@ export function renderOrderSumamry(){
     
   let totalCart = totalCartQuantity(cart);
 
-  document.querySelector('.js-checkout-items').innerHTML = `${totalCart} items`
-
+  document.querySelector('.js-checkout-items').innerHTML = `${totalCart} items`;
   document.querySelectorAll('.js-delete').forEach((button)=>{
     button.addEventListener('click',()=>{
       const {productId} = button.dataset;
@@ -180,7 +175,7 @@ export function renderOrderSumamry(){
 
   function updateCart(productId){
     document.querySelector(`.js-cart-container-${productId}`).classList.remove('is-editing-quantity');
-    console.log(document.querySelector(`.js-cart-container-${productId}`).classList);
+    // console.log(document.querySelector(`.js-cart-container-${productId}`).classList);
 
     let newQuantity = document.querySelector(`.js-quantity-input-${productId}`);
     newQuantity = Number(newQuantity.value);
@@ -201,6 +196,7 @@ export function renderOrderSumamry(){
       const {productId} = button.dataset;
       console.log(productId);
       updateCart(productId);
+      renderPaymtSummary();
     })
   });
 
@@ -227,6 +223,8 @@ export function renderOrderSumamry(){
       const {productId,deliveryOptionId} = radioButton.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSumamry();
+      renderPaymtSummary();
     })
   });
 }
+
