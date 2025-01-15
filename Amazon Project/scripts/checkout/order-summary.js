@@ -41,7 +41,9 @@ export function renderOrderSumamry(){
         chosenDay = deliveryOption.deliveryDate;
       }
     });
-
+    // let today = dayjs();
+    // let chosenDate = today.add(chosenDay,'days');
+    // chosenDate = chosenDate.format('dddd, MMMM DD');
     let chosenDate = calculateDeliveryDate(chosenDay);
 
     cartHtml += `<div class="cart-container js-cart-container-${matchingProduct.id}">
