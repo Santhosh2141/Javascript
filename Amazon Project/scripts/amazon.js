@@ -93,8 +93,9 @@ document.querySelectorAll('.js-add-to-cart')
   button.addEventListener('click',()=>{
       // gives data attribute
     const {productId} = button.dataset;   // destructuring
-
-    addToCart(productId);
+    let selectedValue = document.querySelector(`.js-selected-value-${productId}`);
+    const quantity = Number(selectedValue.value);
+    addToCart(productId,quantity);
     let totalCart = totalCartQuantity(cart);
     document.querySelector('.js-cart-text').innerHTML = totalCart;
     addMsg(productId);
