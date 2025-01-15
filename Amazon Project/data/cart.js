@@ -1,16 +1,20 @@
-export let cart = JSON.parse(localStorage.getItem('cart'));
-if (!cart){
-  cart = [{
-    productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-    quantity: 3,
-    deliveryOptionId: '1'
-  },{
-    productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-    quantity: 1,
-    deliveryOptionId: '2'
-  }]; //export allows using this in other files
-} 
-console.log(cart);
+export let cart ;
+// console.log(cart);
+loadFromStorage();
+export function loadFromStorage (){
+  cart = JSON.parse(localStorage.getItem('cart'));
+  if (!cart){
+    cart = [{
+      productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+      quantity: 3,
+      deliveryOptionId: '1'
+    },{
+      productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+      quantity: 1,
+      deliveryOptionId: '2'
+    }]; //export allows using this in other files
+  } 
+}
 
 //moving all cart related code here
 export function saveToStorage(){
@@ -27,9 +31,9 @@ export function getCartItem(productId){
     return presentItem;
 }
 
-export function addToCart(productId){
-  let selectedValue = document.querySelector(`.js-selected-value-${productId}`);
-  const quantity = Number(selectedValue.value);
+export function addToCart(productId,quantity){
+  // let selectedValue = document.querySelector(`.js-selected-value-${productId}`);
+  // const quantity = Number(selectedValue.value);
   let presentItem = getCartItem(productId);
   if (presentItem){
     presentItem.quantity += 1;
