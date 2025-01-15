@@ -46,7 +46,7 @@ export function renderOrderSumamry(){
     // chosenDate = chosenDate.format('dddd, MMMM DD');
     let chosenDate = calculateDeliveryDate(chosenDay);
 
-    cartHtml += `<div class="cart-container js-cart-container-${matchingProduct.id}">
+    cartHtml += `<div class="cart-container js-cart-container-${matchingProduct.id} js-cart-item-container">
               <div class="delivery-date">
                 Delivery date: ${chosenDate}
               </div>
@@ -70,7 +70,7 @@ export function renderOrderSumamry(){
                     <span class="save-quantity-link link js-save-quantity-link" data-product-id="${matchingProduct.id}">
                       Save
                     </span>
-                    <span class="link js-delete" data-product-id="${matchingProduct.id}">
+                    <span class="link js-delete js-delete-link-${matchingProduct.id}" data-product-id="${matchingProduct.id}">
                       Delete
                     </span>
                     <span class="incorrect-quantity js-incorrect-quantity" data-product-id="${matchingProduct.id}">
@@ -139,7 +139,8 @@ export function renderOrderSumamry(){
   //     })
   //   })
   // })
-    
+  
+  //COMMENTED THIS CODE AS IT IS NOT OF USE 
   let totalCart = totalCartQuantity(cart);
   renderCheckoutHeader();
   document.querySelector('.js-checkout-items').innerHTML = `${totalCart} items`;
