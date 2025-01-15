@@ -3,7 +3,7 @@ import { deliveryOptions } from "../../data/delivery-options.js";
 import { getProduct } from "../../data/products.js";
 import formatCurrency from "../utils/money.js";
 
-export function renderPaymtSummary(){
+export function renderPaymtSummary(productId){
   console.log('payment summary');
   let amountPriceCents = 0;
   let shippingPriceCents = 0;
@@ -38,7 +38,7 @@ export function renderPaymtSummary(){
       <div>
         Shipping & handling:
       </div>
-      <div class="payment-row-value">
+      <div class="payment-row-value js-shipping-${productId}">
         $${formatCurrency(shippingPriceCents)}
       </div>
     </div>
@@ -62,7 +62,7 @@ export function renderPaymtSummary(){
       <div class="payment-total-title">
         Order total:
       </div>
-      <div class="payment-total">
+      <div class="payment-total js-total-${productId}">
         $${formatCurrency(totalPriceCents)}
       </div>
     </div>

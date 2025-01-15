@@ -55,10 +55,10 @@ export function renderOrderSumamry(){
                   <img class="cart-image" src=${matchingProduct.image}>
                 </div>
                 <div class="cart-item-details">
-                  <div class="cart-product-name">
+                  <div class="cart-product-name js-cart-product-name-${matchingProduct.id}">
                     ${matchingProduct.name}
                   </div>
-                  <div class="cart-product-price">
+                  <div class="cart-product-price js-cart-product-price-${matchingProduct.id}">
                     $${formatCurrency(matchingProduct.priceCents)}
                   </div>
                   <div class="cart-product-quantity js-cart-quantity-${matchingProduct.id}">
@@ -111,8 +111,8 @@ export function renderOrderSumamry(){
       /* It checkd the cart DeliveryOption. If it is 1, it checks the first option */
 
       html += `
-        <div class="delivery-option js-delivery-option" data-product-id="${productId}" data-delivery-option-id="${deliveryOption.id}">
-          <input type="radio" name="delivery-option-${productId}" ${isChecked?'checked':''}>
+        <div class="delivery-option js-delivery-option js-delivery-option-${productId}-${deliveryOption.id}" data-product-id="${productId}" data-delivery-option-id="${deliveryOption.id}">
+          <input type="radio" name="delivery-option-${productId}" ${isChecked?'checked':''} class = "js-delivery-option-input-${productId}-${deliveryOption.id}">
           <div>
             <div class="delivery-option-date">
               ${deliveryDateAdd}
@@ -158,7 +158,7 @@ export function renderOrderSumamry(){
         }else if (item.quantity === 1){
         removeFromCart(productId);
 
-        renderPaymtSummary();
+        renderPaymtSummary(productId);
         renderOrderSumamry();
         renderCheckoutHeader();
         // const container = document.querySelector(`.js-cart-container-${productId}`);
@@ -209,7 +209,7 @@ export function renderOrderSumamry(){
 
       updateCart(productId);
 
-      renderPaymtSummary();
+      renderPaymtSummary(productId);
       renderCheckoutHeader();
 
     })
@@ -239,7 +239,7 @@ export function renderOrderSumamry(){
       updateDeliveryOption(productId, deliveryOptionId);
 
       renderOrderSumamry();
-      renderPaymtSummary();
+      renderPaymtSummary(productId);
       renderCheckoutHeader();
 
     })

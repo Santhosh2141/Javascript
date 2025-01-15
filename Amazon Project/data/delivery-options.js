@@ -31,3 +31,15 @@ export function calculateDeliveryDate(chosenDay){
   chosenDate = chosenDate.format('dddd, MMMM DD');
   return chosenDate;
 }
+
+export function validDeliveryOption(deliveryOptionId) {
+  let present = false;
+
+  deliveryOptions.forEach((option) => {
+    if (option.id === deliveryOptionId) {
+      present = true;
+    }
+  });
+
+  return present;
+}
