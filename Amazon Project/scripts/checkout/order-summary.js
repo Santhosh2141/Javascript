@@ -59,7 +59,7 @@ export function renderOrderSumamry(){
                     ${matchingProduct.name}
                   </div>
                   <div class="cart-product-price js-cart-product-price-${matchingProduct.id}">
-                    $${formatCurrency(matchingProduct.priceCents)}
+                    ${matchingProduct.getPrice()}
                   </div>
                   <div class="cart-product-quantity js-cart-quantity-${matchingProduct.id}">
                     Quantity: <span class="js-update-quantity-${matchingProduct.id}">${item.quantity}</span>
