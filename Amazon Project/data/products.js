@@ -1,4 +1,3 @@
-import { cart } from "./cart.js";
 import formatCurrency from "../scripts/utils/money.js";
 
 class Products {
@@ -24,6 +23,31 @@ class Products {
 
   getPrice() {
      return `$${formatCurrency(this.priceCents)}`;
+  }
+  extraInfoHTML() {
+    return '';
+  }
+}
+
+class Appliance extends Products {
+  instructionLink;
+  warrantyLink;
+  constructor(appliance) {
+    super(appliance);
+    this.instructionLink = appliance.instructionLink;
+    this.warrantyLink = appliance.warrantyLink;
+    this.html = appliance.html;
+  };
+
+  extraInfoHTML() {
+    return `
+      <a href="${this.instructionLink}" target="_blank">
+        Instructions
+      </a>
+      <a href="${this.warrantyLink}" target="_blank">
+        Warranty
+      </a>
+    `;
   }
 }
 
@@ -97,7 +121,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: 'Appliance',
+    instructionLink: 'images/products/black-2-slot-toaster.jpg',
+    warrantyLink: 'images/products/black-2-slot-toaster.jpg',
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -712,7 +739,11 @@ export const products = [
     ]
   }
 ].map((product) => {
+  if (product.type === 'Appliance'){
+    return new Appliance(product);
+  }
   return new Products(product);
 });
 
+console.log(products);
 //map creates a new array. when we return each element will go inside that array
