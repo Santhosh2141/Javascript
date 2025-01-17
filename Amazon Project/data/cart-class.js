@@ -2,13 +2,15 @@ import { validDeliveryOption } from "./delivery-options.js";
 
 class Cart {
   cartItems;
-  param;
+  #param;
+  // putting a # infront makes it a private property
+  //similarly for methods as well
   constructor(parameter){
-    this.param = parameter,
-    this.loadFromStorage();
+    this.#param = parameter,
+    this.#loadFromStorage();
   }
-  loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(`cart-oop-${this.param}`));
+  #loadFromStorage() {
+    this.cartItems = JSON.parse(localStorage.getItem(`cart-oop-${this.#param}`));
     if (!this.cartItems){
       this.cartItems = [{
         productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
