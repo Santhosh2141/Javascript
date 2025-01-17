@@ -1,7 +1,7 @@
-import {cart, addToCart, totalCartQuantity } from '../data/cart.js'; // .. means going out of script folder. we can rename and use these variables too.
+// import {cart, addToCart, totalCartQuantity } from '../data/cart.js'; // .. means going out of script folder. we can rename and use these variables too.
 // like import {cart as myCart} from '../data/scripts.js'
+import { amazonCart } from '../data/cart-class.js';
 import { products } from '../data/products.js';
-import { formatCurrency } from './utils/money.js';
 
 let productsHtml = '';
 products.forEach((product)=>{
@@ -64,7 +64,7 @@ products.forEach((product)=>{
 // data attribute should start w the word "data" and be separated by -
 document.querySelector('.js-products-grid').innerHTML = productsHtml;
 
-let totalCart = totalCartQuantity(cart);
+let totalCart = amazonCart.totalCartQuantity();
 
 document.querySelector('.js-cart-text').innerHTML = totalCart;
 
@@ -95,8 +95,8 @@ document.querySelectorAll('.js-add-to-cart')
     const {productId} = button.dataset;   // destructuring
     let selectedValue = document.querySelector(`.js-selected-value-${productId}`);
     const quantity = Number(selectedValue.value);
-    addToCart(productId,quantity);
-    let totalCart = totalCartQuantity(cart);
+    amazonCart.addToCart(productId,quantity);
+    let totalCart = amazonCart.totalCartQuantity();
     document.querySelector('.js-cart-text').innerHTML = totalCart;
     addMsg(productId);
   });

@@ -1,4 +1,5 @@
-import {cart, removeFromCart , totalCartQuantity, updateQuantity, updateDeliveryOption} from '../../data/cart.js';
+// import {cart, removeFromCart , totalCartQuantity, updateQuantity, updateDeliveryOption} from '../../data/cart.js';
+import { amazonCart } from '../../data/cart-class.js';
 import { getProduct, products } from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
@@ -29,7 +30,7 @@ so we use dayjs as it had those functionalities*/
 export function renderOrderSumamry(){
 
   let cartHtml = '';
-  cart.forEach((item) => {
+  amazonCart.cartItems.forEach((item) => {
     const cartId = item.productId;
     let matchingProduct = getProduct(cartId);
     // console.log(matchingProduct);
@@ -141,22 +142,22 @@ export function renderOrderSumamry(){
   // })
   
   //COMMENTED THIS CODE AS IT IS NOT OF USE 
-  let totalCart = totalCartQuantity(cart);
+  let totalCart = amazonCart.totalCartQuantity();
   renderCheckoutHeader();
   document.querySelector('.js-checkout-items').innerHTML = `${totalCart} items`;
   document.querySelectorAll('.js-delete').forEach((button)=>{
     button.addEventListener('click',()=>{
       const {productId} = button.dataset;
       
-      cart.forEach((item) => {
+      // amazonCart.cartItems.forEach((item) => {
         // if(item.id === productId){
         //   item.quantity -= 1;
         //   console.log(productId);
         // };
-        if (item.quantity > 1) {
-          return;
-        }else if (item.quantity === 1){
-        removeFromCart(productId);
+        // if (item.quantity > 1) {
+        //   return;
+        // }else if (item.quantity === 1){
+        amazonCart.removeFromCart(productId);
 
         renderPaymtSummary(productId);
         renderOrderSumamry();
@@ -167,8 +168,8 @@ export function renderOrderSumamry(){
         // let totalCart = totalCartQuantity(cart);
         // document.querySelector('.js-checkout-items').innerHTML = `${totalCart} items`
         
-        }
-      });
+        // }
+      // });
     });
   });
 
@@ -189,7 +190,7 @@ export function renderOrderSumamry(){
     let newQuantity = document.querySelector(`.js-quantity-input-${productId}`);
     newQuantity = Number(newQuantity.value);
     if(newQuantity >= 0 && newQuantity < 1000){
-      updateQuantity(productId,newQuantity);
+      amazonCart.updateQuantity(productId,newQuantity);
 
       renderCheckoutHeader();
 
@@ -236,7 +237,7 @@ export function renderOrderSumamry(){
   document.querySelectorAll('.js-delivery-option').forEach((radioButton)=>{
     radioButton.addEventListener('click',()=>{
       const {productId,deliveryOptionId} = radioButton.dataset;
-      updateDeliveryOption(productId, deliveryOptionId);
+      amazonCart.updateDeliveryOption(productId, deliveryOptionId);
 
       renderOrderSumamry();
       renderPaymtSummary(productId);

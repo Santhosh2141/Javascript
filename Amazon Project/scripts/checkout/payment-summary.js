@@ -1,4 +1,5 @@
-import { cart, totalCartQuantity } from "../../data/cart.js";
+// import { cart, totalCartQuantity } from "../../data/cart.js";
+import { amazonCart } from "../../data/cart-class.js";
 import { deliveryOptions } from "../../data/delivery-options.js";
 import { getProduct } from "../../data/products.js";
 import formatCurrency from "../utils/money.js";
@@ -7,7 +8,7 @@ export function renderPaymtSummary(productId){
   console.log('payment summary');
   let amountPriceCents = 0;
   let shippingPriceCents = 0;
-  cart.forEach((item) => {
+  amazonCart.cartItems.forEach((item) => {
     const matchingProduct = getProduct(item.productId)
     amountPriceCents += matchingProduct.priceCents * item.quantity;
     deliveryOptions.forEach((deliveryOption)=>{
@@ -28,7 +29,7 @@ export function renderPaymtSummary(productId){
     </div>
     <div class="payment-details">
       <div class="js-total-items">
-        Items (${totalCartQuantity(cart)}):
+        Items (${amazonCart.totalCartQuantity()}):
       </div>
       <div class="payment-row-value">
         $${formatCurrency(amountPriceCents)}

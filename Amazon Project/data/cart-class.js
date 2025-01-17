@@ -1,6 +1,6 @@
 import { validDeliveryOption } from "./delivery-options.js";
 
-class Cart {
+export class Cart {
   cartItems;
   #param;
   // putting a # infront makes it a private property
@@ -24,7 +24,7 @@ class Cart {
     } 
   }
   saveToStorage() {
-    localStorage.setItem(`cart-oop-${this.param}`,JSON.stringify(this.cartItems));
+    localStorage.setItem(`cart-oop-${this.#param}`,JSON.stringify(this.cartItems));
   }
   getCartItem(productId){
     let presentItem;
@@ -60,7 +60,7 @@ class Cart {
     this.cartItems = newCart;
     this.saveToStorage();
   }
-  totalCartQuantity(cart) {
+  totalCartQuantity() {
     let totalCart = 0;
     this.cartItems.forEach((item)=>{
       totalCart += item.quantity;
@@ -75,7 +75,7 @@ class Cart {
         item.quantity = newQuantity;
       }
     })
-    console.log(cart);
+    console.log();
     this.saveToStorage();
   }
   updateDeliveryOption(productId, deliveryOptionId){
@@ -98,11 +98,14 @@ class Cart {
 
 // class lets us have setup code called constructor
 
-const cart = new Cart('basic');    // each object created for a class is called an instance of a class
+const cart1 = new Cart('basic');    // each object created for a class is called an instance of a class
 const businessCart = new Cart('business');    // the value passed as the parameter will be used in the contructor
 
-cart.addToCart('83d4ca15-0f35-48f5-b7a3-1ea210004f2e',2);
-
-console.log(cart);
+console.log(cart1);
 console.log(businessCart);
+
+export const amazonCart = new Cart('amazon');
+amazonCart.cartItems.saveToStorage;
+console.log(amazonCart);
+
 //moving all cart related code herevalidDeliveryOption, 
