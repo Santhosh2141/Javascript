@@ -33,24 +33,39 @@ class Appliance extends Products {
   instructionLink;
   warrantyLink;
   constructor(appliance) {
-    super(appliance);
+    super(appliance);   // super calls the constructor of the parent class
     this.instructionLink = appliance.instructionLink;
     this.warrantyLink = appliance.warrantyLink;
-    this.html = appliance.html;
   };
 
   extraInfoHTML() {
     return `
+    <div>
       <a href="${this.instructionLink}" target="_blank">
-        Instructions
+        Instructions        
       </a>
+    </div>
       <a href="${this.warrantyLink}" target="_blank">
         Warranty
       </a>
     `;
   }
 }
+class Clothing extends Products {
+  sizeChartLink;
+  constructor(clothing) {
+    super(clothing);
+    this.sizeChartLink = clothing.sizeChartLink;
+  };
 
+  extraInfoHTML() {
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">    
+        Size Chart
+      </a>
+    `; // traget _blank tells to open in a new tab
+  }
+}
 export function getProduct(productId){
   let matchingProduct;
   products.forEach((product)=>{
@@ -75,7 +90,9 @@ export const products = [
       "socks",
       "sports",
       "apparel"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
@@ -168,7 +185,9 @@ export const products = [
       "hoodies",
       "sweaters",
       "apparel"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id: "77919bbe-0e56-475b-adde-4f24dfed3a04",
@@ -185,7 +204,9 @@ export const products = [
       "restroom",
       "towels",
       "bath towels"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id: "3fdfe8d6-9a15-4979-b459-585b0d0545b9",
@@ -214,7 +235,9 @@ export const products = [
       "shoes",
       "running shoes",
       "footwear"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id: "5968897c-4d27-4872-89f6-5bcb052746d7",
@@ -294,7 +317,9 @@ export const products = [
       "shorts",
       "apparel",
       "mens"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id: "c2a82c5e-aff4-435f-9975-517cfaba2ece",
@@ -309,7 +334,10 @@ export const products = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    type: 'Appliance',
+    instructionLink: 'images/products/electric-glass-and-steel-hot-water-kettle.webp',
+    warrantyLink: 'images/products/electric-glass-and-steel-hot-water-kettle.webp',
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -441,7 +469,10 @@ export const products = [
       "bins",
       "cans",
       "kitchen"
-    ]
+    ],
+    type: 'Appliance',
+    instructionLink: 'images/products/trash-can-with-foot-pedal-50-liter.jpg',
+    warrantyLink: 'images/products/trash-can-with-foot-pedal-50-liter.jpg',
   },
   {
     id: "19c6a64a-5463-4d45-9af8-e41140a4100c",
@@ -570,7 +601,9 @@ export const products = [
       "jogging",
       "apparel",
       "womens"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id: "d339adf3-e004-4c20-a120-40e8874c66cb",
@@ -614,7 +647,10 @@ export const products = [
       "coffeemakers",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: 'Appliance',
+    instructionLink: 'images/products/coffeemaker-with-glass-carafe-black.jpg',
+    warrantyLink: 'images/products/coffeemaker-with-glass-carafe-black.jpg',
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -674,7 +710,10 @@ export const products = [
       "food blenders",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: 'Appliance',
+    instructionLink: 'images/products/countertop-blender-64-oz.jpg',
+    warrantyLink: 'images/products/countertop-blender-64-oz.jpg',
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -721,7 +760,9 @@ export const products = [
       "hoodies",
       "apparel",
       "mens"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id1: "santhosh_custom_product",
@@ -741,6 +782,8 @@ export const products = [
 ].map((product) => {
   if (product.type === 'Appliance'){
     return new Appliance(product);
+  } else if (product.type === 'clothing'){
+    return new Clothing(product);
   }
   return new Products(product);
 });
