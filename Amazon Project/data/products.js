@@ -1,6 +1,6 @@
 import formatCurrency from "../scripts/utils/money.js";
 
-class Products {
+export class Products {
   id;
   image;
   name;
@@ -29,7 +29,7 @@ class Products {
   }
 }
 
-class Appliance extends Products {
+export class Appliance extends Products {
   instructionLink;
   warrantyLink;
   constructor(appliance) {
@@ -51,7 +51,7 @@ class Appliance extends Products {
     `;
   }
 }
-class Clothing extends Products {
+export class Clothing extends Products {
   sizeChartLink;
   constructor(clothing) {
     super(clothing);
@@ -788,5 +788,14 @@ export const products = [
   return new Products(product);
 });
 
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());
+function logThis(){
+  console.log(this);
+};
+
+logThis.call('hello');
+// in arrow function 'this' will be what it is outside.
 console.log(products);
 //map creates a new array. when we return each element will go inside that array
