@@ -44,10 +44,10 @@ export function renderPaymtSummary(productId){
       </div>
     </div>
     <div class="payment-details subtotal-row">
-      <div>
+      <div class='title-row'>
         Total before Tax:
       </div>
-      <div class="payment-row-value  line-row">
+      <div class="payment-row-value line-row">
         $${formatCurrency(estimatedPriceCents)}
       </div>
     </div>
