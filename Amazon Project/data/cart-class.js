@@ -94,6 +94,16 @@ export class Cart {
   
     this.saveToStorage();
   }
+  loadCart(fun) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET','https://supersimplebackend.dev/cart');
+    xhr.addEventListener('load',() => {
+      console.log(xhr.response);
+      fun();
+    });
+    xhr.send();
+  }
+  
 }
 
 // class lets us have setup code called constructor
