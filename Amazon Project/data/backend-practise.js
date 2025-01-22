@@ -4,7 +4,7 @@ xhr.open('GET', 'https://supersimplebackend.dev');    // GET is get info from ba
 // only ceratin URL paths will be supported which will be enabled backend.
 // if not allowed itll throw error
 xhr.addEventListener('load', () =>{   //load waits for loading the response.
-  console.log(xhr.response);
+  // console.log(xhr.response);
 })
 
 xhr.send();   // it is asynchornous code

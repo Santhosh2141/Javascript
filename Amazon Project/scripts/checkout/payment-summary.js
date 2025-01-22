@@ -5,7 +5,7 @@ import { getProduct } from "../../data/products.js";
 import formatCurrency from "../utils/money.js";
 
 export function renderPaymtSummary(productId){
-  console.log('payment summary');
+  // console.log('payment summary');
   let amountPriceCents = 0;
   let shippingPriceCents = 0;
   amazonCart.cartItems.forEach((item) => {

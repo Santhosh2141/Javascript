@@ -65,7 +65,7 @@ export function totalCartQuantity(cart) {
   cart.forEach((item)=>{
     totalCart += item.quantity;
   });
-  console.log(totalCart);
+  // console.log(totalCart);
   saveToStorage();
   return totalCart;
 }
@@ -76,7 +76,7 @@ export function updateQuantity(productId, newQuantity) {
       item.quantity = newQuantity;
     }
   })
-  console.log(cart);
+  // console.log(cart);
   saveToStorage();
 }
 

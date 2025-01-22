@@ -88,7 +88,7 @@ function renderProductsGrid() {
   
     timeoutId = setTimeout(()=>{
       addedMsg.classList.remove('js-added-to-cart-visible');
-      console.log(timeoutId)
+      // console.log(timeoutId)
       addedTimeouts[productId] = timeoutId;
     },3000);
   }

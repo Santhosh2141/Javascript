@@ -60,7 +60,7 @@ function Cart(param) {
       this.cartItems.forEach((item)=>{
         totalCart += item.quantity;
       });
-      console.log(totalCart);
+      // console.log(totalCart);
       this.saveToStorage();
       return totalCart;
     },
@@ -70,7 +70,7 @@ function Cart(param) {
           item.quantity = newQuantity;
         }
       })
-      console.log(cart);
+      // console.log(cart);
       this.saveToStorage();
     },
     updateDeliveryOption(productId, deliveryOptionId){
@@ -100,6 +100,6 @@ const businessCart = Cart('business');
 cart.loadFromStorage();
 businessCart.loadFromStorage();
 cart.addToCart('83d4ca15-0f35-48f5-b7a3-1ea210004f2e',2);
-console.log(cart);
-console.log(businessCart);
+// console.log(cart);
+// console.log(businessCart);
 //moving all cart related code here

@@ -815,13 +815,13 @@ export function loadProducts(fun) {
 // });
 
 const date = new Date();
-console.log(date);
-console.log(date.toLocaleTimeString());
+// console.log(date);
+// console.log(date.toLocaleTimeString());
 function logThis(){
-  console.log(this);
+  // console.log(this);
 };
 
 logThis.call('hello');
 // in arrow function 'this' will be what it is outside.
-console.log(products);
+// console.log(products);
 //map creates a new array. when we return each element will go inside that array

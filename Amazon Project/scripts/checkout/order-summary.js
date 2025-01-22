@@ -206,7 +206,7 @@ export function renderOrderSumamry(){
   document.querySelectorAll('.save-quantity-link').forEach((button)=>{
     button.addEventListener('click',()=>{
       const {productId} = button.dataset;
-      console.log(productId);
+      // console.log(productId);
 
       updateCart(productId);
 

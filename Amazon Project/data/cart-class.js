@@ -65,7 +65,7 @@ export class Cart {
     this.cartItems.forEach((item)=>{
       totalCart += item.quantity;
     });
-    console.log(totalCart);
+    // console.log(totalCart);
     this.saveToStorage();
     return totalCart;
   }
@@ -75,7 +75,7 @@ export class Cart {
         item.quantity = newQuantity;
       }
     })
-    console.log();
+    // console.log();
     this.saveToStorage();
   }
   updateDeliveryOption(productId, deliveryOptionId){
@@ -101,11 +101,11 @@ export class Cart {
 const cart1 = new Cart('basic');    // each object created for a class is called an instance of a class
 const businessCart = new Cart('business');    // the value passed as the parameter will be used in the contructor
 
-console.log(cart1);
-console.log(businessCart);
+// console.log(cart1);
+// console.log(businessCart);
 
 export const amazonCart = new Cart('amazon');
 amazonCart.cartItems.saveToStorage;
-console.log(amazonCart);
+// console.log(amazonCart);
 
 //moving all cart related code herevalidDeliveryOption, 
