@@ -1,12 +1,12 @@
 import { renderOrderSumamry } from "../../scripts/checkout/order-summary.js";
 import { cart, loadFromStorage } from "../../data/cart.js";
-import { loadProducts } from "../../data/products.js";
+import { loadProducts,loadProductsFetch } from "../../data/products.js";
 
 describe('Test suite: Render Order Summary', () => {
 
   // done waits till loadproducts is complete. so we need to call done to go to next step
   beforeAll((done)=>{
-    loadProducts(()=>{
+    loadProductsFetch().then(()=>{
       done();
     });
   })

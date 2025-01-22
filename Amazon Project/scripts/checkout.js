@@ -1,7 +1,7 @@
 import { renderOrderSumamry } from "./checkout/order-summary.js";
 import { renderPaymtSummary } from "./checkout/payment-summary.js";
 import { renderCheckoutHeader } from "./checkout/checkout-header.js";
-import { loadProducts } from "../data/products.js";
+import { loadProductsFetch } from "../data/products.js";
 import { amazonCart } from "../data/cart-class.js";
 // import '../data/backend-practise.js';
 // import '../data/cart-class.js';
@@ -14,8 +14,10 @@ import { amazonCart } from "../data/cart-class.js";
 // so Promise->loadProducts->resolve and
 // loadProducts->renederSUmmary runs at the saem time
 
-//we can also run multiple promises at the same time
-Promise.all([
+// we can also run multiple promises at the same time
+
+// PROMISE WITHOUT FETCH
+/*Promise.all([
   new Promise((resolve)=>{
     loadProducts(()=>{
       resolve('value1');   //resolver tells when to go to next step
@@ -31,8 +33,9 @@ Promise.all([
   renderPaymtSummary();
   renderCheckoutHeader();
 })
+  */
 
-new Promise((resolve)=>{
+/*new Promise((resolve)=>{
   loadProducts(()=>{
     resolve('value1');   //resolver tells when to go to next step
   })    // whatever paraeter is sent in 'resolve' will be stored in the parameter of 'then'
@@ -49,8 +52,24 @@ new Promise((resolve)=>{
   renderPaymtSummary();
   renderCheckoutHeader();
 });
+*/
 
+// PROMISE WITH FECTH
+// fetch returns a promise. so we have to use that promise. Promise.all needs a promise. that returned one will be used here.
+Promise.all([
+  loadProductsFetch(),
+  new Promise((resolve)=>{
+    amazonCart.loadCart(()=>{
+      resolve();
+    });
+  })
+]).then(()=>{
+  renderOrderSumamry();
+  renderPaymtSummary();
+  renderCheckoutHeader();
+})
 
+// NORMAL CALLBACK
 // promise is similar to callbacks
 // each layer of nesting is created due to callbacks. so we use promise
 /* loadProducts(()=>{  // this code runs. the function inside runs after loadproducts is run

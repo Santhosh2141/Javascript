@@ -78,8 +78,36 @@ export function getProduct(productId){
 
 export let products = [];
 
+export function loadProductsFetch(){
+  const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
+    // the response will be saved inside the parameter of the 'then' part
+    // response.JSON is asynchronous and returns a promise. so we have to wait for the promise to finish. so we return it to wait for it to finish
+    return response.json();   // gives the data attached to response.  
+  }).then((productsData)=>{
+    console.log(productsData);
+    products = productsData.map((product) => {
+      if (product.type === 'Appliance'){
+        return new Appliance(product);
+      } else if (product.type === 'clothing'){
+        return new Clothing(product);
+      }
+      return new Products(product);
+    });
+    console.log('load products');
+  
+  })   // fetch makes a GET req by default
+  //using fetch creates a promise
+  return promise;   //assigning a variable can help us return the value and perform another code like below
+}
+
+/*
+loadProductsFetch().then(()=>{
+  console.log('next step');
+});
+*/
+
 export function loadProducts(fun) {
-  const xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();  
   xhr.open('GET','https://supersimplebackend.dev/products');
   xhr.addEventListener('load',() => {
     products = JSON.parse(xhr.response).map((product) => {
@@ -98,7 +126,7 @@ export function loadProducts(fun) {
     fun();
   })
   xhr.send();
-}
+} 
 
 
 
