@@ -79,7 +79,7 @@ export function getProduct(productId){
 export let products = [];
 
 export function loadProductsFetch(){
-  const promise = fetch('https://error.supersimplebackend.dev/products').then((response)=>{
+  const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
     // the response will be saved inside the parameter of the 'then' part
     // response.JSON is asynchronous and returns a promise. so we have to wait for the promise to finish. so we return it to wait for it to finish
     return response.json();   // gives the data attached to response.  
