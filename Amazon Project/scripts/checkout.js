@@ -9,12 +9,23 @@ import { amazonCart } from "../data/cart-class.js";
 
 async function loadPage(){
   // await waits for the code to finish in the backend before going to the next lineS
-  await loadProductsFetch();
-  const value = await new Promise((resolve)=>{
-    amazonCart.loadCart(()=>{
-      resolve('value2');
+
+  try{
+    // throw 'error1'    //manually creates error. goes directly to catch
+    await loadProductsFetch();
+    const value = await new Promise((resolve, reject)=>{
+      // throw doesnt work in the future. promise gives aanother parameter called reject
+      // throw 'error2'    //if its a normal promise itll go to .catch func. as it has await it goes to catch{}
+      amazonCart.loadCart(()=>{
+        // reject('error3');
+        resolve('value2');
+      });
     });
-  });   // here well put .then((value)=>{}). instead of using .then we can use a variable and assign value to that using above method
+  }
+  catch(error){
+    console.log('Error occured. Please try later')
+  }
+   // here well put .then((value)=>{}). instead of using .then we can use a variable and assign value to that using above method
   renderOrderSumamry();
   renderPaymtSummary();
   renderCheckoutHeader();

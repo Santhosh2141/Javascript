@@ -79,7 +79,7 @@ export function getProduct(productId){
 export let products = [];
 
 export function loadProductsFetch(){
-  const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
+  const promise = fetch('https://error.supersimplebackend.dev/products').then((response)=>{
     // the response will be saved inside the parameter of the 'then' part
     // response.JSON is asynchronous and returns a promise. so we have to wait for the promise to finish. so we return it to wait for it to finish
     return response.json();   // gives the data attached to response.  
@@ -94,12 +94,14 @@ export function loadProductsFetch(){
       return new Products(product);
     });
     console.log('load products');
-  
-  })   // fetch makes a GET req by default
+    
+  })//.catch(()=>{
+    //console.log('unexpetced error. Please try again later');
+  //})  // catch can be used to run errors
+     // fetch makes a GET req by default
   //using fetch creates a promise
   return promise;   //assigning a variable can help us return the value and perform another code like below
 }
-
 /*
 loadProductsFetch().then(()=>{
   console.log('next step');
@@ -124,6 +126,9 @@ export function loadProducts(fun) {
     // so we make the whole thing a function. pass the function to Load products and call that function which is a parameter here.
     // this method is callback.
     fun();
+  });
+  xhr.addEventListener('error',(error)=>{
+    console.log('unexpetced error. Please try again later');
   })
   xhr.send();
 } 
