@@ -3,6 +3,8 @@ import { amazonCart } from "../../data/cart-class.js";
 import { deliveryOptions } from "../../data/delivery-options.js";
 import { getProduct } from "../../data/products.js";
 import formatCurrency from "../utils/money.js";
+import '../../data/orders.js';
+import { addOrder } from "../../data/orders.js";
 
 export function renderPaymtSummary(productId){
   // console.log('payment summary');
@@ -67,8 +69,32 @@ export function renderPaymtSummary(productId){
         $${formatCurrency(totalPriceCents)}
       </div>
     </div>
-    <button class="place-order">Place Order</button>
+    <button class="place-order js-place-order">Place Order</button>
   `
   document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHtml;
+
+  // This part is used to get the order created.
+  // so when we click. it creates a promise using ASYNC AWAIT.
+  // fetch that api to post the order or the cart items
+  // this then does resolve by sending a response to the then part.
+  // this response we save it in a var. and we wait for it to get converted to a JSON.
+  // we then add this order to our list of orders.
+  
+  document.querySelector('.js-place-order')
+  .addEventListener('click', async()=>{
+    const response = await fetch('https://supersimplebackend.dev/orders', {
+      method: 'POST',
+      headers: {
+        'Content-type' : 'application/json'
+      },
+      body: JSON.stringify({
+        cart: amazonCart.cartItems
+      })
+    });  // for the order we need to send the cart to backend.
+    const order = await response.json();
+    addOrder(order);
+    console.log(order);
+  });
+
 }
 
