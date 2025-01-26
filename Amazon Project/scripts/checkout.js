@@ -7,6 +7,21 @@ import { amazonCart } from "../data/cart-class.js";
 // import '../data/cart-class.js';
 // using import direct runs all the code in that file 
 
+async function loadPage(){
+  // await waits for the code to finish in the backend before going to the next lineS
+  await loadProductsFetch();
+  const value = await new Promise((resolve)=>{
+    amazonCart.loadCart(()=>{
+      resolve('value2');
+    });
+  });   // here well put .then((value)=>{}). instead of using .then we can use a variable and assign value to that using above method
+  renderOrderSumamry();
+  renderPaymtSummary();
+  renderCheckoutHeader();
+  // return 'value2';    // this acts like resolve(value) value is value2
+}   // async gets a function and returns a promise
+
+loadPage();
 // promise takes a parameter called resolve similar to done in jasmine
 // htis helps to run asynchronous code.
 
@@ -56,18 +71,18 @@ import { amazonCart } from "../data/cart-class.js";
 
 // PROMISE WITH FECTH
 // fetch returns a promise. so we have to use that promise. Promise.all needs a promise. that returned one will be used here.
-Promise.all([
-  loadProductsFetch(),
-  new Promise((resolve)=>{
-    amazonCart.loadCart(()=>{
-      resolve();
-    });
-  })
-]).then(()=>{
-  renderOrderSumamry();
-  renderPaymtSummary();
-  renderCheckoutHeader();
-})
+// Promise.all([
+//   loadProductsFetch(),
+//   new Promise((resolve)=>{
+//     amazonCart.loadCart(()=>{
+//       resolve();
+//     });
+//   })
+// ]).then(()=>{
+//   renderOrderSumamry();
+//   renderPaymtSummary();
+//   renderCheckoutHeader();
+// })
 
 // NORMAL CALLBACK
 // promise is similar to callbacks
