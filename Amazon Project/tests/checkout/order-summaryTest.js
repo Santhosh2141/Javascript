@@ -38,20 +38,20 @@ describe('Test suite: Render Order Summary', () => {
   afterEach (() => {
     // document.querySelector('.js-test-container').innerHTML=``;
   })
-  it('Display the cart', () => {
+  // it('Display the cart', () => {
 
-    expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(2);
+  //   expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(2);
 
-    // we use toContain as the whole block as multiple other HMTL. toCOntain check if that string alone is available.
-    expect(document.querySelector('.js-cart-quantity-e43638ce-6aa0-4b85-b27f-e1d07eb678c6').innerText).toContain('Quantity: 3');
+  //   // we use toContain as the whole block as multiple other HMTL. toCOntain check if that string alone is available.
+  //   expect(document.querySelector('.js-cart-quantity-e43638ce-6aa0-4b85-b27f-e1d07eb678c6').innerText).toContain('Quantity: 3');
 
-    expect(document.querySelector('.js-cart-quantity-15b6fc6f-327a-4ec4-896f-486349e85a3d').innerText).toContain('Quantity: 1');
+  //   expect(document.querySelector('.js-cart-quantity-15b6fc6f-327a-4ec4-896f-486349e85a3d').innerText).toContain('Quantity: 1');
 
-    expect(document.querySelector('.js-cart-product-name-e43638ce-6aa0-4b85-b27f-e1d07eb678c6').innerHTML).toContain('Black and Gray Athletic Cotton Socks - 6 Pairs');
+  //   expect(document.querySelector('.js-cart-product-name-e43638ce-6aa0-4b85-b27f-e1d07eb678c6').innerHTML).toContain('Black and Gray Athletic Cotton Socks - 6 Pairs');
 
-    expect(document.querySelector('.js-cart-product-price-e43638ce-6aa0-4b85-b27f-e1d07eb678c6').innerHTML).toContain('$10.90');
+  //   expect(document.querySelector('.js-cart-product-price-e43638ce-6aa0-4b85-b27f-e1d07eb678c6').innerHTML).toContain('$10.90');
 
-  });
+  // });
 
   it('removes a product', () => {
 

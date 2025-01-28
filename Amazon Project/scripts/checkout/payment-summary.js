@@ -79,21 +79,27 @@ export function renderPaymtSummary(productId){
   // this then does resolve by sending a response to the then part.
   // this response we save it in a var. and we wait for it to get converted to a JSON.
   // we then add this order to our list of orders.
-  
+
   document.querySelector('.js-place-order')
   .addEventListener('click', async()=>{
-    const response = await fetch('https://supersimplebackend.dev/orders', {
-      method: 'POST',
-      headers: {
-        'Content-type' : 'application/json'
-      },
-      body: JSON.stringify({
-        cart: amazonCart.cartItems
-      })
-    });  // for the order we need to send the cart to backend.
-    const order = await response.json();
-    addOrder(order);
-    console.log(order);
+    try {
+      const response = await fetch('https://supersimplebackend.dev/orders', {
+        method: 'POST',
+        headers: {
+          'Content-type' : 'application/json'
+        },
+        body: JSON.stringify({
+          cart: amazonCart.cartItems
+        })
+      });  // for the order we need to send the cart to backend
+      const order = await response.json();
+      addOrder(order);
+      console.log(order);
+    } catch(error) {
+      console.log('Unexpected error. Try again Later')
+    }
+    // window.location is used to nagivate to another page. href specifies the url
+    window.location.href = 'orders.html';
   });
 
 }
