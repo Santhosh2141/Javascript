@@ -66,4 +66,10 @@
       </div>
     </div>
   </body>
+
+  <script>
+    const url = new URL(window.location.href);     // this gets the URL of the page
+    console.log(url.searchParams.get('orderId'));    // helps getting the url parameter. tracking.html?orderId=123. each order has a different tracking part. so we need the parameter specific to that order
+    console.log(url.searchParams.get('productID')); 
+  </script>
 </html>
