@@ -5,10 +5,8 @@ import { loadProducts,loadProductsFetch } from "../../data/products.js";
 describe('Test suite: Render Order Summary', () => {
 
   // done waits till loadproducts is complete. so we need to call done to go to next step
-  beforeAll((done)=>{
-    loadProductsFetch().then(()=>{
-      done();
-    });
+  beforeAll(async ()=>{
+    await loadProductsFetch();
   })
   beforeEach (() => {
     spyOn(localStorage, 'setItem');

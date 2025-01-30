@@ -12,15 +12,23 @@ async function loadPage(){
 
   try{
     // throw 'error1'    //manually creates error. goes directly to catch
-    await loadProductsFetch();
-    const value = await new Promise((resolve, reject)=>{
+    await Promise.all([
+      loadProductsFetch(),
+      amazonCart.loadCartFetch()
+    ])
+    // USING FETCH INSTEAD OF PROMISE
+    // await loadProductsFetch();
+    // await amazonCart.loadCartFetch();
+    // USING PROMISE INSTEAD OF FETCH
+    // const value = await new Promise((resolve, reject)=>{
       // throw doesnt work in the future. promise gives aanother parameter called reject
       // throw 'error2'    //if its a normal promise itll go to .catch func. as it has await it goes to catch{}
-      amazonCart.loadCart(()=>{
-        // reject('error3');
-        resolve('value2');
-      });
-    });
+      // amazonCart.loadCart(()=>{
+      //   // reject('error3');
+      //   resolve('value2');
+      // });
+      
+    // });
   }
   catch(error){
     console.log('Error occured. Please try later')
