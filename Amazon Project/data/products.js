@@ -73,6 +73,7 @@ export function getProduct(productId){
       matchingProduct = product;
     }
   });
+  // console.log(matchingProduct);
   return matchingProduct;
 }
 

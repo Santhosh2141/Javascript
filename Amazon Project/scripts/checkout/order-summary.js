@@ -42,10 +42,10 @@ export function renderOrderSumamry(){
         chosenDay = deliveryOption.deliveryDate;
       }
     });
-    // let today = dayjs();
-    // let chosenDate = today.add(chosenDay,'days');
-    // chosenDate = chosenDate.format('dddd, MMMM DD');
-    let chosenDate = calculateDeliveryDate(chosenDay);
+    let today = dayjs();
+    let chosenDate = today.add(chosenDay,'days');
+    chosenDate = chosenDate.format('dddd, MMMM DD');
+    // let chosenDate = calculateDeliveryDate(chosenDay);
 
     cartHtml += `<div class="cart-container js-cart-container-${matchingProduct.id} js-cart-item-container">
               <div class="delivery-date">
@@ -103,7 +103,7 @@ export function renderOrderSumamry(){
     let html = '';
     deliveryOptions.forEach((deliveryOption)=>{
       
-      const deliveryDateAdd = calculateDeliveryDate(deliveryOption.deliveryDate);
+      const deliveryDateAdd = calculateDate(deliveryOption);
 
       const priceString = deliveryOption.priceCents === 0 ? 'FREE ' : `$${formatCurrency(deliveryOption.priceCents)} -`;
 

@@ -103,7 +103,16 @@ export class Cart {
     });
     xhr.send();
   }
-  
+  async loadCartFetch(){
+    const resp = await fetch('https://supersimplebackend.dev/cart');
+    const result = await resp.text();
+    console.log(result);
+    // return result;
+  }
+  clearCart() {
+    this.cartItems = [];
+    this.saveToStorage();
+  }
 }
 
 // class lets us have setup code called constructor

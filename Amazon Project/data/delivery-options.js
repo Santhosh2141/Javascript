@@ -22,12 +22,12 @@ export const deliveryOptions = [{
 export function calculateDeliveryDate(chosenDay){
   let chosenDate = dayjs();
 
-  while (chosenDay > 0){
-    chosenDate =  chosenDate.add('1','days');
-    if (!isWeekend(chosenDate)){
-      chosenDay--;
-    }
-  }
+  // while (chosenDay > 0){
+  //   chosenDate =  chosenDate.add('1','days');
+  //   // if (!isWeekend(chosenDate)){
+  //     chosenDay--;
+  //   // }
+  // }
   chosenDate = chosenDate.format('dddd, MMMM DD');
   return chosenDate;
 }

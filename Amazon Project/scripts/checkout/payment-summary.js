@@ -98,6 +98,8 @@ export function renderPaymtSummary(productId){
     } catch(error) {
       console.log('Unexpected error. Try again Later')
     }
+    amazonCart.clearCart();
+    console.log(amazonCart.cartItems);
     // window.location is used to nagivate to another page. href specifies the url
     window.location.href = 'orders.html';
   });
