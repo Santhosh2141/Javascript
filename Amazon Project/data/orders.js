@@ -8,3 +8,14 @@ export function addOrder(order) {
 function saveToStorage() {
   localStorage.setItem('orders',JSON.stringify(orders));
 }
+
+export function getOrderId(orderId){
+  let matchingOrder;
+
+  orders.forEach((order)=>{
+    if(orderId === order.id){
+      matchingOrder = order;
+    }
+  });
+  return matchingOrder;
+}

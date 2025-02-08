@@ -53,9 +53,11 @@ function loadOrderDetails(){
             </button>
           </div>
           <div class="track-button">
+            <a href = "tracking.html?orderId=${order.id}&productId=${product.productId}">
             <button class="track-pack-button">
               Track Package
             </button>
+            </a>
           </div>
         </div>
       `

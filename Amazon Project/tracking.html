@@ -25,7 +25,7 @@
         </a>
         <a class="cart-section" href="checkout.html">
           <img class="cart-icon" src="images/icons/cart-icon.png">
-          <div class="cart-text">3</div>
+          <div class="cart-text js-cart-text"></div>
           <div class="cart">Cart</div>
         </a>
       </div>
@@ -36,38 +36,11 @@
     </div>
     <div class="tracking-container">
       <div class="track-item-grid">
-        <div class="track-title">
-          Arriving on Monday, June 13th
-        </div>
-        <div class="track-detail"> 
-          Black and Gray Athletic Cotton Socks - 6 Pairs
-        </div>
-        <div class="track-detail">
-          Quantity: 1
-        </div>
-        <div class="track-image-container">
-          <img class="track-image" src="images/products/athletic-cotton-socks-6-pairs.jpg">
-        </div>
-        <div class="tracker-grid">
-          <div class="tracker-name">
-            Preparing
-          </div>
-          <div class="tracker-name active-progress">
-            Shipped
-          </div>
-          <div class="tracker-name">
-            Delivered
-          </div>
-        </div>
-        <div class="progress-bar-container">
-          <div class="progress-bar">
-          </div>
-        </div>
       </div>
     </div>
   </body>
 
-  <script>
+  <script type="module" src="scripts/tracking.js">
     const url = new URL(window.location.href);     // this gets the URL of the page
     console.log(url.searchParams.get('orderId'));    // helps getting the url parameter. tracking.html?orderId=123. each order has a different tracking part. so we need the parameter specific to that order
     console.log(url.searchParams.get('productID')); 
