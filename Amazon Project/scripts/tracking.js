@@ -23,11 +23,12 @@ async function loadTracking() {
   let deliveryDate = dayjs(productInfo.estimatedDeliveryTime);
   console.log(today, orderDate, deliveryDate);
   const percentage = ((today-orderDate)/(deliveryDate-orderDate))*100;
+  let deliveredMsg = today > dayjs(productInfo.estimatedDeliveryTime) ? 'Delivered On' : 'Arriving On'
   console.log(percentage);
   let html = 
   `
   <div class="track-title">
-    Arriving on ${dayjs(productInfo.estimatedDeliveryTime).format('MMMM D')}
+    ${deliveredMsg} ${dayjs(productInfo.estimatedDeliveryTime).format('MMMM D')}
   </div>
   <div class="track-detail"> 
     ${product.name}

@@ -31,6 +31,7 @@ function loadOrderDetails(){
     order.products.forEach((product)=>{
       let orderPId = product.productId
       let matchingProduct = getProduct(orderPId);
+      let deliveredMsg = dayjs() > dayjs(product.estimatedDeliveryTime) ? 'Delivered On' : 'Arriving On';
       prodHtml += 
       `
         <div class="order-item-grid">
@@ -42,7 +43,7 @@ function loadOrderDetails(){
             ${matchingProduct.name}
             </div>
             <div class="item-date">
-              Arriving on: ${dayjs(product.estimatedDeliveryTime).format('MMMM D')}
+              ${deliveredMsg}: ${dayjs(product.estimatedDeliveryTime).format('MMMM D')}
             </div>
             <div class="item-quantity">
               Quantity: ${product.quantity}
