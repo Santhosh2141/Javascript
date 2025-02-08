@@ -7,7 +7,28 @@ loadProducts(renderProductsGrid);
 
 function renderProductsGrid() {
   let productsHtml = '';
-  products.forEach((product)=>{
+
+  const url = new URL(window.location.href);
+  let searched = url.searchParams.get('search');
+  document.querySelector('.js-search-bar').value = searched;
+  console.log(searched);
+  console.log(products);
+  let filteredProducts = products;
+  if (searched){
+    filteredProducts = (products.filter((product)=>{
+      // return product.name.toLowerCase().includes(searched) ;
+      let mathcingKey = false;
+      product.keywords.forEach((keyword)=>{
+        if(keyword.toLowerCase().includes(searched.toLowerCase())){
+          mathcingKey = true;
+        }
+      })
+      return mathcingKey || product.name.toLowerCase().includes(searched.toLowerCase());
+    }));
+  }
+  console.log(filteredProducts);
+
+  filteredProducts.forEach((product)=>{
     productsHtml += `
     <div class="product-container">
       <div class="product-image-container">
